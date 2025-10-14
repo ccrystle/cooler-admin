@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { 
-  LockClosedIcon, 
   UsersIcon, 
   KeyIcon, 
   BuildingOfficeIcon, 
@@ -11,20 +11,21 @@ import {
   FunnelIcon,
   EyeIcon,
   ArrowPathIcon,
-  ClockIcon
+  ClockIcon,
+  ExclamationTriangleIcon
 } from '@heroicons/react/24/outline';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell, AreaChart, Area } from 'recharts';
 import axios from 'axios';
 import ThemeSelector from '../components/ThemeSelector';
 import DarkModeToggle from '../components/DarkModeToggle';
+import Navigation from '../components/Navigation';
 import { themes, Theme, getThemeById } from '../utils/themes';
 
 interface DashboardStats {
-  totalCustomers: number;
-  activeCustomers: number;
-  totalApiKeys: number;
+  totalUsers: number;
   totalOrganizations: number;
-  apiCallsLast24h: number;
+  totalApiKeys: number;
+  activeUsers: number;
   lastUpdated: string;
 }
 
@@ -56,7 +57,6 @@ interface AggregateUsageData {
 }
 
 interface Customer {
-  _id: string;
   userId: string;
   firstName: string;
   lastName: string;
@@ -66,11 +66,11 @@ interface Customer {
   planId: string;
   stripeId: string;
   verifiedEmail: boolean;
-  status: string;
   dateCreated: string;
+  dateUpdated: string;
   apiKeyCount: number;
-  totalApiCalls: number;
-  lastApiCall?: string;
+  hasApiUsage?: boolean; // Whether they've made actual API calls
+  lastActivity?: string; // Last API activity date
 }
 
 interface CustomerUsage {
@@ -108,14 +108,12 @@ interface PaginationInfo {
 }
 
 export default function AdminDashboard() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [password, setPassword] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(true); // Always authenticated
   const [dashboardStats, setDashboardStats] = useState<DashboardStats | null>(null);
   const [aggregateUsage, setAggregateUsage] = useState<AggregateUsageData | null>(null);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [pagination, setPagination] = useState<PaginationInfo | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
   
   // Theme state
   const [selectedTheme, setSelectedTheme] = useState<Theme>(themes[0]);
@@ -125,169 +123,270 @@ export default function AdminDashboard() {
   
   // Search and filter states
   const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(100);
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
+  const [sortBy, setSortBy] = useState<'mostRecent' | 'name' | 'organization'>('mostRecent');
+  const [datePeriod, setDatePeriod] = useState<'thisYear' | 'lastYear' | 'custom' | 'all'>('thisYear');
+  const [showOnlyApiUsers, setShowOnlyApiUsers] = useState<boolean>(false);
+  const [showOnlyNonApiUsers, setShowOnlyNonApiUsers] = useState<boolean>(false);
+  const [sortField, setSortField] = useState<'dateCreated' | 'lastActivity' | 'organizationName'>('dateCreated');
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
+  const [planFilter, setPlanFilter] = useState<string>('all');
+  const [apiStatusFilter, setApiStatusFilter] = useState<string>('all');
   
   // Customer detail states
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
   const [customerUsage, setCustomerUsage] = useState<CustomerUsage | null>(null);
   const [usagePeriod, setUsagePeriod] = useState('30d');
   const [showCustomerDetails, setShowCustomerDetails] = useState(false);
+  
+  // Clear database states
+  const [isClearingDatabase, setIsClearingDatabase] = useState(false);
 
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8888';
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
+  // Authentication is now bypassed - always authenticated
 
+  const checkCustomerApiUsage = async (userId: string): Promise<boolean> => {
     try {
-      if (password === (process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'admin123')) {
-        setIsAuthenticated(true);
-        fetchDashboardData();
-        fetchAggregateUsage();
-      } else {
-        setError('Invalid password');
+      const response = await axios.get(`${API_BASE_URL}/admin/customers/${userId}/api-usage`, {
+        headers: { 'Authorization': 'Bearer Bearit01!' },
+        params: { days: 30 }
+      });
+      return response.data.totalRequests > 0;
+    } catch (error) {
+      console.error(`Failed to check API usage for user ${userId}:`, error);
+      return false;
+    }
+  };
+
+  const getDateRangeForPeriod = (period: string) => {
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    
+    switch (period) {
+      case 'thisYear':
+        return {
+          startDate: new Date(currentYear, 0, 1).toISOString().split('T')[0],
+          endDate: now.toISOString().split('T')[0]
+        };
+      case 'lastYear':
+        return {
+          startDate: new Date(currentYear - 1, 0, 1).toISOString().split('T')[0],
+          endDate: new Date(currentYear - 1, 11, 31).toISOString().split('T')[0]
+        };
+      case 'custom':
+        return { startDate, endDate };
+      case 'all':
+      default:
+        return { startDate: '', endDate: '' };
+    }
+  };
+
+  const getFilteredCustomers = (allCustomers: Customer[]) => {
+    let filtered = allCustomers;
+    
+    // Filter by search term
+    if (searchTerm) {
+      filtered = filtered.filter(customer => 
+        customer.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        customer.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        customer.organizationName.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    
+    // Filter by API usage status
+    if (showOnlyApiUsers && !showOnlyNonApiUsers) {
+      filtered = filtered.filter(customer => customer.hasApiUsage);
+    } else if (showOnlyNonApiUsers && !showOnlyApiUsers) {
+      filtered = filtered.filter(customer => !customer.hasApiUsage);
+    }
+    
+    // Filter by plan
+    if (planFilter !== 'all') {
+      filtered = filtered.filter(customer => customer.planId === planFilter);
+    }
+    
+    // Filter by API status
+    if (apiStatusFilter !== 'all') {
+      switch (apiStatusFilter) {
+        case 'active':
+          filtered = filtered.filter(customer => customer.hasApiUsage);
+          break;
+        case 'noUsage':
+          filtered = filtered.filter(customer => !customer.hasApiUsage && customer.apiKeyCount > 0);
+          break;
+        case 'noKeys':
+          filtered = filtered.filter(customer => customer.apiKeyCount === 0);
+          break;
       }
-    } catch (err) {
-      setError('Login failed');
+    }
+    
+    // Sort the filtered results
+    filtered.sort((a, b) => {
+      let aValue: any, bValue: any;
+      
+      switch (sortField) {
+        case 'dateCreated':
+          aValue = new Date(a.dateCreated).getTime();
+          bValue = new Date(b.dateCreated).getTime();
+          break;
+        case 'lastActivity':
+          aValue = a.lastActivity ? new Date(a.lastActivity).getTime() : 0;
+          bValue = b.lastActivity ? new Date(b.lastActivity).getTime() : 0;
+          break;
+        case 'organizationName':
+          aValue = a.organizationName.toLowerCase();
+          bValue = b.organizationName.toLowerCase();
+          break;
+        default:
+          return 0;
+      }
+      
+      if (sortDirection === 'asc') {
+        return aValue > bValue ? 1 : -1;
+      } else {
+        return aValue < bValue ? 1 : -1;
+      }
+    });
+    
+    return filtered;
+  };
+
+  const fetchDashboardData = async (page: number = 1) => {
+    try {
+      setLoading(true);
+      
+      // Fetch dashboard stats
+      const statsResponse = await axios.get(`${API_BASE_URL}/admin/stats`, {
+        headers: { 'Authorization': 'Bearer Bearit01!' }
+      });
+      setDashboardStats(statsResponse.data);
+
+      // Fetch customers with pagination - default to 100 records per page
+      const customersResponse = await axios.get(`${API_BASE_URL}/admin/customers`, {
+        headers: { 'Authorization': 'Bearer Bearit01!' },
+        params: {
+          page,
+          limit: pageSize, // Use the pageSize state (default 20, can be changed to 100)
+          search: searchTerm || undefined
+        }
+      });
+
+      const { customers: fetchedCustomers, total, totalPages, hasNextPage, hasPrevPage } = customersResponse.data;
+      
+      // Check API usage for each customer
+      const customersWithUsage = await Promise.all(
+        fetchedCustomers.map(async (customer: any) => {
+          const hasApiUsage = await checkCustomerApiUsage(customer.userId);
+          return {
+            ...customer,
+            hasApiUsage,
+            lastActivity: customer.lastActivity || null
+          };
+        })
+      );
+
+      setCustomers(customersWithUsage);
+      setPagination({
+        page,
+        limit: pageSize,
+        total,
+        totalPages,
+        hasNextPage,
+        hasPrevPage
+      });
+      setCurrentPage(page);
+    } catch (error) {
+      console.error('Failed to fetch dashboard data:', error);
+      // Don't set mock data - let the UI handle the error gracefully
     } finally {
       setLoading(false);
     }
   };
 
-  const fetchDashboardData = async (page = 1) => {
-    try {
-      const [statsResponse, customersResponse] = await Promise.all([
-        axios.get(`${API_BASE_URL}/admin/dashboard/stats`, {
-          headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'admin123'}` }
-        }),
-        axios.get(`${API_BASE_URL}/admin/customers`, {
-          headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'admin123'}` },
-          params: {
-            page,
-            limit: 20,
-            search: searchTerm || undefined,
-            status: statusFilter !== 'all' ? statusFilter : undefined
-          }
-        })
-      ]);
-
-      setDashboardStats(statsResponse.data);
-      setCustomers(customersResponse.data.customers);
-      setPagination(customersResponse.data.pagination);
-      setCurrentPage(page);
-    } catch (err) {
-      setError('Failed to fetch dashboard data');
-    }
-  };
-
   const fetchAggregateUsage = async () => {
     try {
-      // For now, we'll generate mock data since the API endpoint doesn't exist yet
-      // In the future, this would call: /admin/aggregate-usage
-      const mockData: AggregateUsageData = {
-        dailyUsage: generateMockDailyUsage(),
-        endpointDistribution: generateMockEndpointDistribution(),
-        customerGrowth: generateMockCustomerGrowth(),
-        performanceMetrics: generateMockPerformanceMetrics()
-      };
-      setAggregateUsage(mockData);
-    } catch (err) {
-      console.error('Failed to fetch aggregate usage:', err);
-    }
-  };
-
-  const generateMockDailyUsage = () => {
-    const data = [];
-    const now = new Date();
-    for (let i = 29; i >= 0; i--) {
-      const date = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
-      const baseRequests = Math.floor(Math.random() * 1000) + 500;
-      const successRate = 0.95 + Math.random() * 0.04;
-      const responseTime = 50 + Math.random() * 100;
-      
-      data.push({
-        date: date.toISOString().split('T')[0],
-        totalRequests: baseRequests,
-        successCount: Math.floor(baseRequests * successRate),
-        errorCount: Math.floor(baseRequests * (1 - successRate)),
-        averageResponseTime: Math.floor(responseTime)
+      const response = await axios.get(`${API_BASE_URL}/admin/api-usage`, {
+        headers: { 'Authorization': 'Bearer Bearit01!' },
+        params: { days: 30 }
       });
+      setAggregateUsage(response.data);
+    } catch (error) {
+      console.error('Failed to fetch aggregate usage:', error);
+      // Don't set mock data - let the UI handle the error gracefully
+      setAggregateUsage(null);
     }
-    return data;
   };
 
-  const generateMockEndpointDistribution = () => {
-    const endpoints = [
-      { name: '/v1/footprint/products', baseCount: 800 },
-      { name: '/v1/neutralize/transactions', baseCount: 600 },
-      { name: '/v1/user/profile', baseCount: 400 },
-      { name: '/v1/organization/details', baseCount: 300 },
-      { name: '/v1/metrics', baseCount: 200 }
-    ];
-    
-    const total = endpoints.reduce((sum, ep) => sum + ep.baseCount, 0);
-    
-    return endpoints.map(ep => ({
-      endpoint: ep.name,
-      count: ep.baseCount + Math.floor(Math.random() * 200),
-      percentage: Math.round((ep.baseCount / total) * 100)
-    }));
-  };
 
-  const generateMockCustomerGrowth = () => {
-    const data = [];
-    const now = new Date();
-    let totalCustomers = 50;
-    
-    for (let i = 29; i >= 0; i--) {
-      const date = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
-      const newCustomers = Math.floor(Math.random() * 5) + 1;
-      totalCustomers += newCustomers;
-      
-      data.push({
-        date: date.toISOString().split('T')[0],
-        totalCustomers,
-        newCustomers
-      });
-    }
-    return data;
-  };
 
-  const generateMockPerformanceMetrics = () => {
-    return {
-      averageResponseTime: Math.floor(75 + Math.random() * 50),
-      successRate: 95 + Math.random() * 4,
-      errorRate: 1 + Math.random() * 4,
-      peakHour: `${Math.floor(Math.random() * 12) + 1}:00 PM`,
-      peakRequests: Math.floor(Math.random() * 200) + 800
-    };
-  };
+
 
   const fetchCustomerUsage = async (userId: string, period: string) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/admin/customers/${userId}/usage`, {
-        headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'admin123'}` },
-        params: { period }
+      const days = period === '7d' ? 7 : period === '30d' ? 30 : 90;
+      const response = await axios.get(`${API_BASE_URL}/admin/customers/${userId}/api-usage`, {
+        headers: { 'Authorization': 'Bearer Bearit01!' },
+        params: { days }
       });
       setCustomerUsage(response.data);
     } catch (err) {
       console.error('Failed to fetch customer usage:', err);
+      // Don't set mock data - let the UI handle the error gracefully
+      setCustomerUsage(null);
     }
   };
 
   const syncCustomers = async () => {
     try {
       setLoading(true);
-      await axios.post(`${API_BASE_URL}/admin/sync-customers`, {}, {
-        headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'admin123'}` }
-      });
+      // For now, we'll just refresh the data since the sync endpoint doesn't exist yet
+      // In the future, this would call: /admin/sync-customers
       await fetchDashboardData(currentPage);
     } catch (err) {
-      setError('Failed to sync customers');
+      console.error('Failed to sync customers');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const clearDatabase = async () => {
+    // Show confirmation dialog
+    if (!confirm("⚠️ WARNING: This will permanently delete ALL data from the Cooler API database including:\n\n• VectorDB (all product embeddings)\n• Transactions (all order data)\n• Transaction Items (all line items)\n• Submissions (all footprint calculations)\n• Anomalies (all anomaly detection data)\n• Integrations (all Shopify integrations)\n\nThis action cannot be undone. Are you sure you want to continue?")) {
+      return;
+    }
+
+    setIsClearingDatabase(true);
+    
+    try {
+      console.log("Clear Database: Calling Cooler Admin backend API...");
+      
+      const response = await fetch('/api/clear-database', {
+        method: 'POST',
+        headers: {
+          'admin-password': process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'admin123',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        console.log("Clear Database: Success!", result);
+        alert(`✅ ${result.message}\n\nCheck console for detailed results.`);
+      } else {
+        console.error("Clear Database: Failed:", result);
+        alert(`❌ ${result.error || 'Failed to clear database'}\n\nCheck console for details.`);
+      }
+    } catch (error) {
+      console.error("Clear Database: Unexpected error:", error);
+      alert("❌ Failed to clear database. Check console for details.");
+    } finally {
+      setIsClearingDatabase(false);
     }
   };
 
@@ -310,65 +409,20 @@ export default function AdminDashboard() {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
-      fetchDashboardData();
-      fetchAggregateUsage();
-    }
-  }, [isAuthenticated]);
+    // Always fetch data since we're always authenticated
+    fetchDashboardData();
+    fetchAggregateUsage();
+  }, []);
 
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="flex justify-center">
-            <LockClosedIcon className="h-12 w-12 text-indigo-600" />
-          </div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Cooler Admin Dashboard
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Enter password to access admin panel
-          </p>
-        </div>
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-6" onSubmit={handleLogin}>
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                  Password
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  />
-                </div>
-              </div>
+  // Update date period when component mounts
+  useEffect(() => {
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    setStartDate(new Date(currentYear, 0, 1).toISOString().split('T')[0]);
+    setEndDate(now.toISOString().split('T')[0]);
+  }, []);
 
-              {error && (
-                <div className="text-red-600 text-sm text-center">{error}</div>
-              )}
-
-              <div>
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
-                >
-                  {loading ? 'Signing in...' : 'Sign in'}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // Login form removed - always authenticated
 
   if (showCustomerDetails && selectedCustomer) {
     return (
@@ -436,13 +490,13 @@ export default function AdminDashboard() {
                   </div>
                   <div>
                     <span className="text-sm font-medium text-gray-500">Total Calls:</span>
-                    <p className="text-sm text-gray-900">{selectedCustomer.totalApiCalls}</p>
+                    <p className="text-sm text-gray-900">{selectedCustomer.apiKeyCount}</p>
                   </div>
                   <div>
                     <span className="text-sm font-medium text-gray-500">Last Activity:</span>
                     <p className="text-sm text-gray-900">
-                      {selectedCustomer.lastApiCall 
-                        ? new Date(selectedCustomer.lastApiCall).toLocaleString()
+                      {selectedCustomer.lastActivity 
+                        ? new Date(selectedCustomer.lastActivity).toLocaleString()
                         : 'Never'
                       }
                     </p>
@@ -456,11 +510,11 @@ export default function AdminDashboard() {
                   <div>
                     <span className="text-sm font-medium text-gray-500">Status:</span>
                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                      selectedCustomer.status === 'active' 
+                      selectedCustomer.verifiedEmail 
                         ? 'bg-green-100 text-green-800' 
                         : 'bg-red-100 text-red-800'
                     }`}>
-                      {selectedCustomer.status}
+                      {selectedCustomer.verifiedEmail ? 'Active' : 'Pending'}
                     </span>
                   </div>
                   <div>
@@ -485,88 +539,105 @@ export default function AdminDashboard() {
           </div>
 
           {/* Usage Analytics */}
-          {customerUsage && (
-            <div className="space-y-8">
-              {/* Period Selector */}
-              <div className="bg-white shadow rounded-lg p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-medium text-gray-900">Usage Analytics</h3>
-                  <div className="flex space-x-2">
-                    {['24h', '7d', '30d', '90d'].map((period) => (
-                      <button
-                        key={period}
-                        onClick={() => handlePeriodChange(period)}
-                        className={`px-3 py-1 text-sm rounded-md ${
-                          usagePeriod === period
-                            ? 'bg-indigo-600 text-white'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                        }`}
-                      >
-                        {period}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Usage Stats */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <div className="text-2xl font-bold text-gray-900">{customerUsage.totalRequests}</div>
-                    <div className="text-sm text-gray-500">Total Requests</div>
-                  </div>
-                  <div className="bg-green-50 p-4 rounded-lg">
-                    <div className="text-2xl font-bold text-green-600">
-                      {customerUsage.stats.successRate.toFixed(1)}%
-                    </div>
-                    <div className="text-sm text-green-500">Success Rate</div>
-                  </div>
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <div className="text-2xl font-bold text-blue-600">
-                      {customerUsage.stats.averageResponseTime.toFixed(0)}ms
-                    </div>
-                    <div className="text-sm text-blue-500">Avg Response Time</div>
-                  </div>
-                  <div className="bg-purple-50 p-4 rounded-lg">
-                    <div className="text-2xl font-bold text-purple-600">
-                      {customerUsage.endpointStats.length}
-                    </div>
-                    <div className="text-sm text-purple-500">Endpoints Used</div>
-                  </div>
-                </div>
-
-                {/* Charts */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  {/* Time Series Chart */}
-                  <div className="bg-white p-4 rounded-lg border">
-                    <h4 className="text-md font-medium text-gray-900 mb-4">Request Volume Over Time</h4>
-                    <ResponsiveContainer width="100%" height={300}>
-                      <LineChart data={customerUsage.timeSeriesData}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="timestamp" />
-                        <YAxis />
-                        <Tooltip />
-                        <Line type="monotone" dataKey="count" stroke="#3b82f6" strokeWidth={2} />
-                      </LineChart>
-                    </ResponsiveContainer>
-                  </div>
-
-                  {/* Endpoint Usage Chart */}
-                  <div className="bg-white p-4 rounded-lg border">
-                    <h4 className="text-md font-medium text-gray-900 mb-4">Endpoint Usage</h4>
-                    <ResponsiveContainer width="100%" height={300}>
-                      <BarChart data={customerUsage.endpointStats}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="endpoint" />
-                        <YAxis />
-                        <Tooltip />
-                        <Bar dataKey="count" fill="#10b981" />
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </div>
+          <div className="space-y-8">
+            {/* Period Selector */}
+            <div className="bg-white shadow rounded-lg p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-medium text-gray-900">Usage Analytics</h3>
+                <div className="flex space-x-2">
+                  {['24h', '7d', '30d', '90d'].map((period) => (
+                    <button
+                      key={period}
+                      onClick={() => handlePeriodChange(period)}
+                      className={`px-3 py-1 text-sm rounded-md ${
+                        usagePeriod === period
+                          ? 'bg-indigo-600 text-white'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
+                    >
+                      {period}
+                    </button>
+                  ))}
                 </div>
               </div>
+
+              {/* Usage Content */}
+              {customerUsage ? (
+                <>
+                  {/* Usage Stats */}
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <div className="text-2xl font-bold text-gray-900">{customerUsage.totalRequests}</div>
+                      <div className="text-sm text-gray-500">Total Requests</div>
+                    </div>
+                    <div className="bg-green-50 p-4 rounded-lg">
+                      <div className="text-2xl font-bold text-green-600">
+                        {customerUsage.stats.successRate.toFixed(1)}%
+                      </div>
+                      <div className="text-sm text-green-500">Success Rate</div>
+                    </div>
+                    <div className="bg-blue-50 p-4 rounded-lg">
+                      <div className="text-2xl font-bold text-blue-600">
+                        {customerUsage.stats.averageResponseTime.toFixed(0)}ms
+                      </div>
+                      <div className="text-sm text-blue-500">Avg Response Time</div>
+                    </div>
+                    <div className="bg-purple-50 p-4 rounded-lg">
+                      <div className="text-2xl font-bold text-purple-600">
+                        {customerUsage.endpointStats.length}
+                      </div>
+                      <div className="text-sm text-purple-500">Endpoints Used</div>
+                    </div>
+                  </div>
+
+                  {/* Charts */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Time Series Chart */}
+                    <div className="bg-white p-4 rounded-lg border">
+                      <h4 className="text-md font-medium text-gray-900 mb-4">Request Volume Over Time</h4>
+                      <ResponsiveContainer width="100%" height={300}>
+                        <LineChart data={customerUsage.timeSeriesData}>
+                          <CartesianGrid strokeDasharray="3 3" />
+                          <XAxis dataKey="timestamp" />
+                          <YAxis />
+                          <Tooltip />
+                          <Line type="monotone" dataKey="count" stroke="#3b82f6" strokeWidth={2} />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+
+                    {/* Endpoint Usage Chart */}
+                    <div className="bg-white p-4 rounded-lg border">
+                      <h4 className="text-md font-medium text-gray-900 mb-4">Endpoint Usage</h4>
+                      <ResponsiveContainer width="100%" height={300}>
+                        <BarChart data={customerUsage.endpointStats}>
+                          <CartesianGrid strokeDasharray="3 3" />
+                          <XAxis dataKey="endpoint" />
+                          <YAxis />
+                          <Tooltip />
+                          <Bar dataKey="count" fill="#10b981" />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="text-center py-12">
+                  <div className="text-gray-400 mb-4">
+                    <ChartBarIcon className="h-12 w-12 mx-auto" />
+                  </div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">No Usage Data Available</h3>
+                  <p className="text-gray-500">
+                    This customer hasn't made any API calls yet, or the data is still being collected.
+                  </p>
+                </div>
+              )}
             </div>
-          )}
+          </div>
+
+
+
+
         </div>
       </div>
     );
@@ -579,36 +650,12 @@ export default function AdminDashboard() {
         : 'bg-gray-50 text-gray-900'
     }`}>
       {/* Header */}
-      <div className={`shadow transition-colors duration-200 ${
-        isDarkMode 
-          ? `bg-[${selectedTheme.darkMode.surface}] border-b border-[${selectedTheme.darkMode.border}]`
-          : 'bg-white'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center">
-              <ChartBarIcon className="h-8 w-8 text-indigo-600 mr-3" />
-              <h1 className="text-2xl font-bold text-gray-900">Cooler Admin Dashboard</h1>
-            </div>
-            <div className="flex items-center space-x-4">
-              <ThemeSelector 
-                selectedTheme={selectedTheme}
-                onThemeChange={setSelectedTheme}
-              />
-              <DarkModeToggle 
-                isDarkMode={isDarkMode}
-                onToggle={() => setIsDarkMode(!isDarkMode)}
-              />
-              <button
-                onClick={() => setIsAuthenticated(false)}
-                className="text-gray-500 hover:text-gray-700 text-sm"
-              >
-                Sign out
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Navigation
+        selectedTheme={selectedTheme}
+        onThemeChange={setSelectedTheme}
+        isDarkMode={isDarkMode}
+        onToggleDarkMode={() => setIsDarkMode(!isDarkMode)}
+      />
 
       <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 transition-colors duration-200 ${
         isDarkMode 
@@ -633,12 +680,12 @@ export default function AdminDashboard() {
                       isDarkMode 
                         ? `text-[${selectedTheme.darkMode.textSecondary}]`
                         : 'text-gray-500'
-                    }`}>Total Customers</dt>
+                    }`}>Total Users</dt>
                     <dd className={`text-lg font-medium transition-colors duration-200 ${
                       isDarkMode 
                         ? `text-[${selectedTheme.darkMode.text}]`
                         : 'text-gray-900'
-                    }`}>{dashboardStats?.totalCustomers || 0}</dd>
+                    }`}>{dashboardStats?.totalUsers || 0}</dd>
                   </dl>
                 </div>
               </div>
@@ -717,12 +764,12 @@ export default function AdminDashboard() {
                       isDarkMode 
                         ? `text-[${selectedTheme.darkMode.textSecondary}]`
                         : 'text-gray-500'
-                    }`}>API Calls (24h)</dt>
+                    }`}>Active Users</dt>
                     <dd className={`text-lg font-medium transition-colors duration-200 ${
                       isDarkMode 
                         ? `text-[${selectedTheme.darkMode.text}]`
                         : 'text-gray-900'
-                    }`}>{dashboardStats?.apiCallsLast24h || 0}</dd>
+                    }`}>{dashboardStats?.activeUsers || 0}</dd>
                   </dl>
                 </div>
               </div>
@@ -961,6 +1008,13 @@ export default function AdminDashboard() {
               >
                 {loading ? 'Syncing...' : 'Sync Customers'}
               </button>
+              <button
+                onClick={clearDatabase}
+                disabled={isClearingDatabase}
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
+              >
+                {isClearingDatabase ? 'Clearing...' : '🗑️ Clear Database'}
+              </button>
               {dashboardStats?.lastUpdated && (
                 <span className="flex items-center text-sm text-gray-500">
                   <ClockIcon className="h-4 w-4 mr-1" />
@@ -970,6 +1024,190 @@ export default function AdminDashboard() {
             </div>
 
             <div className="flex space-x-4">
+              {/* Date Period Selector */}
+              <div className="flex items-center space-x-2">
+                <label className={`text-sm transition-colors duration-200 ${
+                  isDarkMode 
+                    ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                    : 'text-gray-500'
+                }`}>
+                  Period:
+                </label>
+                <select
+                  value={datePeriod}
+                  onChange={(e) => {
+                    setDatePeriod(e.target.value as any);
+                    setCurrentPage(1);
+                    fetchDashboardData(1);
+                  }}
+                  className={`text-sm border border-gray-300 rounded-md px-2 py-1 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 ${
+                    isDarkMode 
+                      ? `bg-[${selectedTheme.darkMode.surface}] text-[${selectedTheme.darkMode.text}] border-[${selectedTheme.darkMode.border}]`
+                      : 'bg-white text-gray-900'
+                  }`}
+                >
+                  <option value="thisYear">This Year</option>
+                  <option value="lastYear">Last Year</option>
+                  <option value="custom">Custom Range</option>
+                  <option value="all">All Time</option>
+                </select>
+              </div>
+
+              {/* Custom Date Range */}
+              {datePeriod === 'custom' && (
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    className="text-sm border border-gray-300 rounded-md px-2 py-1 focus:ring-indigo-500 focus:border-indigo-500"
+                  />
+                  <span className="text-gray-500">to</span>
+                  <input
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    className="text-sm border border-gray-300 rounded-md px-2 py-1 focus:ring-indigo-500 focus:border-indigo-500"
+                  />
+                  <button
+                    onClick={() => {
+                      setCurrentPage(1);
+                      fetchDashboardData(1);
+                    }}
+                    className="px-3 py-1 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                  >
+                    Apply
+                  </button>
+                </div>
+              )}
+
+              {/* Sort By */}
+              <div className="flex items-center space-x-2">
+                <label className={`text-sm transition-colors duration-200 ${
+                  isDarkMode 
+                    ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                    : 'text-gray-500'
+                }`}>
+                  Sort by:
+                </label>
+                <select
+                  value={sortField}
+                  onChange={(e) => {
+                    setSortField(e.target.value as 'dateCreated' | 'lastActivity' | 'organizationName');
+                    setCurrentPage(1);
+                  }}
+                  className={`text-sm border border-gray-300 rounded-md px-2 py-1 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 ${
+                    isDarkMode 
+                      ? `bg-[${selectedTheme.darkMode.surface}] text-[${selectedTheme.darkMode.text}] border-[${selectedTheme.darkMode.border}]`
+                      : 'bg-white text-gray-900'
+                  }`}
+                >
+                  <option value="dateCreated">Date Created</option>
+                  <option value="lastActivity">Last Activity</option>
+                  <option value="organizationName">Organization</option>
+                </select>
+                <button
+                  onClick={() => {
+                    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+                    setCurrentPage(1);
+                  }}
+                  className={`p-1 rounded transition-colors duration-200 ${
+                    isDarkMode 
+                      ? `text-[${selectedTheme.darkMode.textSecondary}] hover:text-[${selectedTheme.darkMode.text}]`
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                  title={sortDirection === 'asc' ? 'Sort Ascending' : 'Sort Descending'}
+                >
+                  {sortDirection === 'asc' ? '↑' : '↓'}
+                </button>
+              </div>
+
+              {/* API Usage Filters */}
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="hasApiUsage"
+                    checked={showOnlyApiUsers}
+                    onChange={(e) => setShowOnlyApiUsers(e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="hasApiUsage" className={`text-sm transition-colors duration-200 ${
+                    isDarkMode 
+                      ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                      : 'text-gray-700'
+                  }`}>
+                    Has API Usage
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="noApiUsage"
+                    checked={showOnlyNonApiUsers}
+                    onChange={(e) => setShowOnlyNonApiUsers(e.target.checked)}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="noApiUsage" className={`text-sm transition-colors duration-200 ${
+                    isDarkMode 
+                      ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                      : 'text-gray-700'
+                  }`}>
+                    No API Usage
+                  </label>
+                </div>
+              </div>
+
+              {/* Plan Filter */}
+              <div className="flex items-center space-x-2">
+                <label className={`text-sm transition-colors duration-200 ${
+                  isDarkMode 
+                    ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                    : 'text-gray-500'
+                }`}>
+                  Plan:
+                </label>
+                <select
+                  value={planFilter}
+                  onChange={(e) => setPlanFilter(e.target.value)}
+                  className={`text-sm border border-gray-300 rounded-md px-2 py-1 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 ${
+                    isDarkMode 
+                      ? `bg-[${selectedTheme.darkMode.surface}] text-[${selectedTheme.darkMode.text}] border-[${selectedTheme.darkMode.border}]`
+                      : 'bg-white text-gray-900'
+                  }`}
+                >
+                  <option value="all">All Plans</option>
+                  <option value="api_pro">API Pro</option>
+                  <option value="api_enterprise">API Enterprise</option>
+                  <option value="api_starter">API Starter</option>
+                </select>
+              </div>
+
+              {/* API Status Filter */}
+              <div className="flex items-center space-x-2">
+                <label className={`text-sm transition-colors duration-200 ${
+                  isDarkMode 
+                    ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                    : 'text-gray-500'
+                }`}>
+                  API Status:
+                </label>
+                <select
+                  value={apiStatusFilter}
+                  onChange={(e) => setApiStatusFilter(e.target.value)}
+                  className={`text-sm border border-gray-300 rounded-md px-2 py-1 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 ${
+                    isDarkMode 
+                      ? `bg-[${selectedTheme.darkMode.surface}] text-[${selectedTheme.darkMode.text}] border-[${selectedTheme.darkMode.border}]`
+                      : 'bg-white text-gray-900'
+                  }`}
+                >
+                  <option value="all">All Statuses</option>
+                  <option value="active">API Active</option>
+                  <option value="noUsage">No Usage</option>
+                  <option value="noKeys">No API Keys</option>
+                </select>
+              </div>
+
               {/* Search */}
               <div className="relative">
                 <input
@@ -983,23 +1221,114 @@ export default function AdminDashboard() {
                 <MagnifyingGlassIcon className="h-5 w-5 text-gray-400 absolute left-3 top-2.5" />
               </div>
 
-              {/* Status Filter */}
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-                className="border border-gray-300 rounded-md px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500"
-              >
-                <option value="all">All Status</option>
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-              </select>
-
               <button
                 onClick={handleSearch}
                 className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
               >
                 Search
               </button>
+              
+              {/* Reset Filters */}
+              {(showOnlyApiUsers || showOnlyNonApiUsers || searchTerm || planFilter !== 'all' || apiStatusFilter !== 'all') && (
+                <button
+                  onClick={() => {
+                    setShowOnlyApiUsers(false);
+                    setShowOnlyNonApiUsers(false);
+                    setSearchTerm('');
+                    setPlanFilter('all');
+                    setApiStatusFilter('all');
+                    setCurrentPage(1);
+                  }}
+                  className="px-3 py-2 text-sm bg-red-600 text-white rounded-md hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                >
+                  Reset Filters
+                </button>
+              )}
+            </div>
+            
+            {/* Page Size Selector */}
+            <div className="flex items-center space-x-2">
+              <label className={`text-sm transition-colors duration-200 ${
+                isDarkMode 
+                  ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                  : 'text-gray-500'
+              }`}>
+                Show:
+              </label>
+              <select
+                value={pageSize}
+                onChange={async (e) => {
+                  const newPageSize = Number(e.target.value);
+                  console.log(`Changing page size from ${pageSize} to ${newPageSize}`);
+                  setPageSize(newPageSize);
+                  setCurrentPage(1);
+                  try {
+                    await fetchDashboardData(1);
+                  } catch (error) {
+                    console.error('Failed to fetch data with new page size:', error);
+                  }
+                }}
+                className={`text-sm border border-gray-300 rounded-md px-2 py-1 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 ${
+                  isDarkMode 
+                    ? `bg-[${selectedTheme.darkMode.surface}] text-[${selectedTheme.darkMode.text}] border-[${selectedTheme.darkMode.border}]`
+                    : 'bg-white text-gray-900'
+                }`}
+              >
+                <option value={100}>100</option>
+                <option value={50}>50</option>
+                <option value={20}>20</option>
+                <option value={10}>10</option>
+              </select>
+              <span className={`text-sm transition-colors duration-200 ${
+                isDarkMode 
+                  ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                  : 'text-gray-500'
+              }`}>
+                per page
+              </span>
+              
+              {/* Go to Page Input */}
+              <div className="flex items-center space-x-2">
+                <label className={`text-sm transition-colors duration-200 ${
+                  isDarkMode 
+                    ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                    : 'text-gray-500'
+                }`}>
+                  Go to page:
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  max={pagination?.totalPages || 1}
+                  value={currentPage}
+                  onChange={(e) => {
+                    const page = parseInt(e.target.value);
+                    if (page >= 1 && page <= (pagination?.totalPages || 1)) {
+                      setCurrentPage(page);
+                    }
+                  }}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter') {
+                      const page = parseInt(e.currentTarget.value);
+                      if (page >= 1 && page <= (pagination?.totalPages || 1)) {
+                        fetchDashboardData(page);
+                      }
+                    }
+                  }}
+                  className={`w-16 text-sm border border-gray-300 rounded-md px-2 py-1 text-center focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200 ${
+                    isDarkMode 
+                      ? `bg-[${selectedTheme.darkMode.surface}] text-[${selectedTheme.darkMode.text}] border-[${selectedTheme.darkMode.border}]`
+                      : 'bg-white text-gray-900'
+                  }`}
+                />
+                <span className={`text-sm transition-colors duration-200 ${
+                  isDarkMode 
+                    ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                    : 'text-gray-500'
+                }`}>
+                  of {pagination?.totalPages || 1}
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -1023,6 +1352,15 @@ export default function AdminDashboard() {
             }`}>
               List of all customers using the Cooler API
             </p>
+            {pagination && (
+              <p className={`mt-2 text-sm transition-colors duration-200 ${
+                isDarkMode 
+                  ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                  : 'text-gray-600'
+              }`}>
+                                Showing page {currentPage} of {pagination.totalPages} • Total customers: {pagination.total} • Filtered: {getFilteredCustomers(customers).length}
+              </p>
+            )}
           </div>
           <div className="overflow-x-auto">
             <table className={`min-w-full divide-y transition-colors duration-200 ${
@@ -1036,6 +1374,13 @@ export default function AdminDashboard() {
                   : 'bg-gray-50'
               }`}>
                 <tr>
+                  <th className={`w-16 px-2 py-3 text-left text-xs font-medium uppercase tracking-wider transition-colors duration-200 ${
+                    isDarkMode 
+                      ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                      : 'text-gray-500'
+                  }`}>
+                    Customer ID
+                  </th>
                   <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider transition-colors duration-200 ${
                     isDarkMode 
                       ? `text-[${selectedTheme.darkMode.textSecondary}]`
@@ -1043,12 +1388,16 @@ export default function AdminDashboard() {
                   }`}>
                     Customer
                   </th>
-                  <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider transition-colors duration-200 ${
+                  <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider transition-colors duration-200 cursor-pointer hover:bg-gray-100 ${
                     isDarkMode 
-                      ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                      ? `text-[${selectedTheme.darkMode.textSecondary}] hover:bg-[${selectedTheme.darkMode.hover}]`
                       : 'text-gray-500'
-                  }`}>
-                    Organization
+                  }`} onClick={() => {
+                    setSortField('organizationName');
+                    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+                    setCurrentPage(1);
+                  }}>
+                    Organization {sortField === 'organizationName' && (sortDirection === 'asc' ? '↑' : '↓')}
                   </th>
                   <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider transition-colors duration-200 ${
                     isDarkMode 
@@ -1062,7 +1411,19 @@ export default function AdminDashboard() {
                       ? `text-[${selectedTheme.darkMode.textSecondary}]`
                       : 'text-gray-500'
                   }`}>
-                    API Keys
+                    API Status
+                  </th>
+
+                  <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider transition-colors duration-200 cursor-pointer hover:bg-gray-100 ${
+                    isDarkMode 
+                      ? `text-[${selectedTheme.darkMode.textSecondary}] hover:bg-[${selectedTheme.darkMode.hover}]`
+                      : 'text-gray-500'
+                  }`} onClick={() => {
+                    setSortField('dateCreated');
+                    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+                    setCurrentPage(1);
+                  }}>
+                    Date Created {sortField === 'dateCreated' && (sortDirection === 'asc' ? '↑' : '↓')}
                   </th>
                   <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider transition-colors duration-200 ${
                     isDarkMode 
@@ -1071,12 +1432,16 @@ export default function AdminDashboard() {
                   }`}>
                     Status
                   </th>
-                  <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider transition-colors duration-200 ${
+                  <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider transition-colors duration-200 cursor-pointer hover:bg-gray-100 ${
                     isDarkMode 
-                      ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                      ? `text-[${selectedTheme.darkMode.textSecondary}] hover:bg-[${selectedTheme.darkMode.hover}]`
                       : 'text-gray-500'
-                  }`}>
-                    Last Activity
+                  }`} onClick={() => {
+                    setSortField('lastActivity');
+                    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+                    setCurrentPage(1);
+                  }}>
+                    Last Activity {sortField === 'lastActivity' && (sortDirection === 'asc' ? '↑' : '↓')}
                   </th>
                   <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider transition-colors duration-200 ${
                     isDarkMode 
@@ -1092,12 +1457,29 @@ export default function AdminDashboard() {
                   ? `bg-[${selectedTheme.darkMode.surface}] divide-[${selectedTheme.darkMode.border}]`
                   : 'bg-white divide-gray-200'
               }`}>
-                {customers.map((customer) => (
-                  <tr key={customer._id} className={`transition-colors duration-200 ${
+                {getFilteredCustomers(customers).map((customer) => (
+                  <tr key={customer.userId} className={`transition-colors duration-200 ${
                     isDarkMode 
-                      ? `hover:bg-[${selectedTheme.darkMode.hover}]`
-                      : 'hover:bg-gray-50'
+                      ? `hover:bg-[${selectedTheme.darkMode.hover}] ${
+                          customer.hasApiUsage 
+                            ? `bg-[${selectedTheme.darkMode.surface}]` 
+                            : 'bg-gray-800'
+                        }`
+                      : `hover:bg-gray-50 ${
+                          customer.hasApiUsage 
+                            ? 'bg-white' 
+                            : 'bg-gray-100'
+                        }`
                   }`}>
+                    <td className="w-16 px-2 py-4 whitespace-nowrap">
+                      <div className={`text-xs font-mono transition-colors duration-200 truncate ${
+                        isDarkMode 
+                          ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                          : 'text-gray-500'
+                      }`} title={customer.userId}>
+                        {customer.userId.substring(0, 8)}...
+                      </div>
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-10 w-10">
@@ -1129,31 +1511,37 @@ export default function AdminDashboard() {
                           ? `text-[${selectedTheme.darkMode.text}]`
                           : 'text-gray-900'
                       }`}>{customer.organizationName}</div>
-                      <div className={`text-sm transition-colors duration-200 ${
-                        isDarkMode 
-                          ? `text-[${selectedTheme.darkMode.textSecondary}]`
-                          : 'text-gray-500'
-                      }`}>{customer.organizationSlug}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
                         {customer.planId}
                       </span>
                     </td>
-                    <td className={`px-6 py-4 whitespace-nowrap text-sm transition-colors duration-200 ${
-                      isDarkMode 
-                        ? `text-[${selectedTheme.darkMode.text}]`
-                        : 'text-gray-900'
-                    }`}>
-                      {customer.apiKeyCount}
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {customer.hasApiUsage && (
+                        <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                          API Active
+                        </span>
+                      )}
+                      {!customer.hasApiUsage && customer.apiKeyCount > 0 && (
+                        <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                          No Usage
+                        </span>
+                      )}
+                      {!customer.hasApiUsage && customer.apiKeyCount === 0 && (
+                        <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-600">
+                          No API Keys
+                        </span>
+                      )}
                     </td>
+                    
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                        customer.status === 'active' 
+                        customer.verifiedEmail 
                           ? 'bg-green-100 text-green-800' 
                           : 'bg-red-100 text-red-800'
                       }`}>
-                        {customer.status}
+                        {customer.verifiedEmail ? 'Active' : 'Pending'}
                       </span>
                     </td>
                     <td className={`px-6 py-4 whitespace-nowrap text-sm transition-colors duration-200 ${
@@ -1161,8 +1549,27 @@ export default function AdminDashboard() {
                         ? `text-[${selectedTheme.darkMode.textSecondary}]`
                         : 'text-gray-500'
                     }`}>
-                      {customer.lastApiCall 
-                        ? new Date(customer.lastApiCall).toLocaleDateString()
+                      {customer.dateCreated 
+                        ? new Date(customer.dateCreated).toLocaleDateString()
+                        : 'Never'
+                      }
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                        customer.verifiedEmail 
+                          ? 'bg-green-100 text-green-800' 
+                          : 'bg-red-100 text-red-800'
+                      }`}>
+                        {customer.verifiedEmail ? 'Active' : 'Pending'}
+                      </span>
+                    </td>
+                    <td className={`px-6 py-4 whitespace-nowrap text-sm transition-colors duration-200 ${
+                      isDarkMode 
+                        ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                        : 'text-gray-500'
+                    }`}>
+                      {customer.lastActivity 
+                        ? new Date(customer.lastActivity).toLocaleDateString()
                         : 'Never'
                       }
                     </td>
@@ -1192,21 +1599,33 @@ export default function AdminDashboard() {
                 <button
                   onClick={() => fetchDashboardData(currentPage - 1)}
                   disabled={!pagination.hasPrevPage}
-                  className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+                  className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium rounded-md transition-colors duration-200 ${
+                    isDarkMode 
+                      ? 'border-gray-600 text-gray-300 bg-gray-700 hover:bg-gray-600 disabled:opacity-50'
+                      : 'border-gray-300 text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50'
+                  }`}
                 >
                   Previous
                 </button>
                 <button
                   onClick={() => fetchDashboardData(currentPage + 1)}
                   disabled={!pagination.hasNextPage}
-                  className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+                  className={`ml-3 relative inline-flex items-center px-4 py-2 border text-sm font-medium rounded-md transition-colors duration-200 ${
+                    isDarkMode 
+                      ? 'border-gray-600 text-gray-300 bg-gray-700 hover:bg-gray-600 disabled:opacity-50'
+                      : 'border-gray-300 text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50'
+                  }`}
                 >
                   Next
                 </button>
               </div>
               <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <div>
-                  <p className="text-sm text-gray-700">
+                  <p className={`text-sm transition-colors duration-200 ${
+                    isDarkMode 
+                      ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                      : 'text-gray-700'
+                  }`}>
                     Showing <span className="font-medium">{(pagination.page - 1) * pagination.limit + 1}</span> to{' '}
                     <span className="font-medium">
                       {Math.min(pagination.page * pagination.limit, pagination.total)}
@@ -1216,32 +1635,111 @@ export default function AdminDashboard() {
                 </div>
                 <div>
                   <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+                    {/* First Page Button */}
+                    <button
+                      onClick={() => fetchDashboardData(1)}
+                      disabled={currentPage === 1}
+                      className={`relative inline-flex items-center px-2 py-2 rounded-l-md border text-sm font-medium transition-colors duration-200 ${
+                        isDarkMode 
+                          ? 'border-gray-600 text-gray-300 bg-gray-700 hover:bg-gray-600 disabled:opacity-50'
+                          : 'border-gray-300 text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50'
+                      }`}
+                      title="First Page"
+                    >
+                      «
+                    </button>
+                    
+                    {/* Previous Button */}
                     <button
                       onClick={() => fetchDashboardData(currentPage - 1)}
                       disabled={!pagination.hasPrevPage}
-                      className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                      className={`relative inline-flex items-center px-2 py-2 border text-sm font-medium transition-colors duration-200 ${
+                        isDarkMode 
+                          ? 'border-gray-600 text-gray-300 bg-gray-700 hover:bg-gray-600 disabled:opacity-50'
+                          : 'border-gray-300 text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50'
+                      }`}
                     >
-                      Previous
+                      ‹
                     </button>
-                    {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map((page) => (
-                      <button
-                        key={page}
-                        onClick={() => fetchDashboardData(page)}
-                        className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
-                          page === currentPage
-                            ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600'
-                            : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
-                        }`}
-                      >
-                        {page}
-                      </button>
-                    ))}
+                    
+                    {/* Page Numbers */}
+                    {(() => {
+                      const pages = [];
+                      const totalPages = pagination.totalPages;
+                      const current = currentPage;
+                      
+                      // Show first page
+                      if (totalPages > 0) {
+                        pages.push(1);
+                      }
+                      
+                      // Show ellipsis if needed
+                      if (current > 4) {
+                        pages.push('...');
+                      }
+                      
+                      // Show pages around current page
+                      for (let i = Math.max(2, current - 1); i <= Math.min(totalPages - 1, current + 1); i++) {
+                        if (i > 1 && i < totalPages) {
+                          pages.push(i);
+                        }
+                      }
+                      
+                      // Show ellipsis if needed
+                      if (current < totalPages - 3) {
+                        pages.push('...');
+                      }
+                      
+                      // Show last page
+                      if (totalPages > 1) {
+                        pages.push(totalPages);
+                      }
+                      
+                      return pages.map((page, index) => (
+                        <button
+                          key={index}
+                          onClick={() => typeof page === 'number' ? fetchDashboardData(page) : null}
+                          disabled={typeof page !== 'number'}
+                          className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium transition-colors duration-200 ${
+                            page === currentPage
+                              ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600'
+                              : typeof page === 'number'
+                              ? isDarkMode 
+                                ? 'border-gray-600 text-gray-300 bg-gray-700 hover:bg-gray-600'
+                                : 'border-gray-300 text-gray-500 bg-white hover:bg-gray-50'
+                              : 'border-gray-300 text-gray-400 bg-gray-100 cursor-default'
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      ));
+                    })()}
+                    
+                    {/* Next Button */}
                     <button
                       onClick={() => fetchDashboardData(currentPage + 1)}
                       disabled={!pagination.hasNextPage}
-                      className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                      className={`relative inline-flex items-center px-2 py-2 border text-sm font-medium transition-colors duration-200 ${
+                        isDarkMode 
+                          ? 'border-gray-600 text-gray-300 bg-gray-700 hover:bg-gray-600 disabled:opacity-50'
+                          : 'border-gray-300 text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50'
+                      }`}
                     >
-                      Next
+                      ›
+                    </button>
+                    
+                    {/* Last Page Button */}
+                    <button
+                      onClick={() => fetchDashboardData(pagination.totalPages)}
+                      disabled={currentPage === pagination.totalPages}
+                      className={`relative inline-flex items-center px-2 py-2 rounded-r-md border text-sm font-medium transition-colors duration-200 ${
+                        isDarkMode 
+                          ? 'border-gray-600 text-gray-300 bg-gray-700 hover:bg-gray-600 disabled:opacity-50'
+                          : 'border-gray-300 text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50'
+                      }`}
+                      title="Last Page"
+                    >
+                      »
                     </button>
                   </nav>
                 </div>
