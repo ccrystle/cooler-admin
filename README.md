@@ -46,7 +46,7 @@ NEXT_PUBLIC_ADMIN_PASSWORD=your_admin_password
 npm run dev
 ```
 
-4. Open [http://localhost:3001](http://localhost:3001) in your browser
+4. Open [http://localhost:3004](http://localhost:3004) in your browser
 
 ### Building for Production
 

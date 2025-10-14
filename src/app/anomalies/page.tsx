@@ -39,6 +39,8 @@ interface AnomalyFlag {
     manufacturer: string;
     price: number;
     currency: string;
+    description: string;
+    naicsCode?: string;
   };
 }
 

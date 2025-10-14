@@ -12,7 +12,8 @@ import {
   EyeIcon,
   ArrowPathIcon,
   ClockIcon,
-  ExclamationTriangleIcon
+  ExclamationTriangleIcon,
+  ArrowRightOnRectangleIcon
 } from '@heroicons/react/24/outline';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell, AreaChart, Area } from 'recharts';
 import axios from 'axios';
@@ -141,6 +142,12 @@ export default function AdminDashboard() {
   const [customerUsage, setCustomerUsage] = useState<CustomerUsage | null>(null);
   const [usagePeriod, setUsagePeriod] = useState('30d');
   const [showCustomerDetails, setShowCustomerDetails] = useState(false);
+  const [customerApiRequests, setCustomerApiRequests] = useState<any[]>([]);
+  const [loadingApiRequests, setLoadingApiRequests] = useState(false);
+  
+  // Sign In As states
+  const [signingIn, setSigningIn] = useState(false);
+  const [signInError, setSignInError] = useState<string | null>(null);
   
   // Clear database states
   const [isClearingDatabase, setIsClearingDatabase] = useState(false);
@@ -159,6 +166,24 @@ export default function AdminDashboard() {
     } catch (error) {
       console.error(`Failed to check API usage for user ${userId}:`, error);
       return false;
+    }
+  };
+
+  const fetchCustomerApiRequests = async (userId: string) => {
+    try {
+      setLoadingApiRequests(true);
+      const response = await axios.get('/api/api-requests', {
+        params: { userId, limit: 50 }
+      });
+      
+      if (response.data.success) {
+        setCustomerApiRequests(response.data.data || []);
+      }
+    } catch (error) {
+      console.error('Failed to fetch customer API requests:', error);
+      setCustomerApiRequests([]);
+    } finally {
+      setLoadingApiRequests(false);
     }
   };
 
@@ -393,7 +418,10 @@ export default function AdminDashboard() {
   const handleCustomerClick = async (customer: Customer) => {
     setSelectedCustomer(customer);
     setShowCustomerDetails(true);
-    await fetchCustomerUsage(customer.userId, usagePeriod);
+    await Promise.all([
+      fetchCustomerUsage(customer.userId, usagePeriod),
+      fetchCustomerApiRequests(customer.userId)
+    ]);
   };
 
   const handleSearch = () => {
@@ -405,6 +433,34 @@ export default function AdminDashboard() {
     setUsagePeriod(period);
     if (selectedCustomer) {
       await fetchCustomerUsage(selectedCustomer.userId, period);
+    }
+  };
+
+  const handleSignInAs = async (userId: string) => {
+    try {
+      setSigningIn(true);
+      setSignInError(null);
+
+      const response = await axios.post('/api/impersonate', 
+        { userId },
+        { 
+          headers: { 
+            'Authorization': 'Bearer Bearit01!' 
+          }
+        }
+      );
+
+      if (response.data.success) {
+        // Open magic link in new tab
+        window.open(response.data.magicLink, '_blank');
+      } else {
+        setSignInError(response.data.error || 'Failed to generate magic link');
+      }
+    } catch (error) {
+      console.error('Error generating magic link:', error);
+      setSignInError('Failed to generate magic link');
+    } finally {
+      setSigningIn(false);
     }
   };
 
@@ -442,6 +498,19 @@ export default function AdminDashboard() {
                 <h1 className="text-2xl font-bold text-gray-900">
                   {selectedCustomer.firstName} {selectedCustomer.lastName}
                 </h1>
+              </div>
+              <div className="flex items-center space-x-3">
+                <button
+                  onClick={() => handleSignInAs(selectedCustomer.userId)}
+                  disabled={signingIn}
+                  className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 rounded-md transition-colors"
+                >
+                  <ArrowRightOnRectangleIcon className="h-4 w-4" />
+                  <span>{signingIn ? 'Generating...' : 'Sign In As User'}</span>
+                </button>
+                {signInError && (
+                  <p className="text-sm text-red-600">{signInError}</p>
+                )}
               </div>
               <button
                 onClick={() => setIsAuthenticated(false)}
@@ -635,8 +704,74 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-
-
+          {/* Recent API Requests */}
+          <div className="bg-white shadow rounded-lg p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-medium text-gray-900">Recent API Requests</h3>
+              <Link
+                href={`/api-requests?userId=${selectedCustomer.userId}`}
+                className="text-sm text-blue-600 hover:text-blue-800"
+              >
+                View All →
+              </Link>
+            </div>
+            
+            {loadingApiRequests ? (
+              <div className="text-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                <p className="mt-2 text-gray-500">Loading API requests...</p>
+              </div>
+            ) : customerApiRequests.length > 0 ? (
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Time
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Endpoint
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Status
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Response Time
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {customerApiRequests.slice(0, 10).map((request) => (
+                      <tr key={request.id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {new Date(request.timestamp).toLocaleString()}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {request.endpoint}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                            request.success 
+                              ? 'bg-green-100 text-green-800' 
+                              : 'bg-red-100 text-red-800'
+                          }`}>
+                            {request.success ? 'Success' : 'Error'}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {request.responseTime ? `${request.responseTime}ms` : '-'}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <p className="text-gray-500">No recent API requests found</p>
+              </div>
+            )}
+          </div>
 
         </div>
       </div>
@@ -1574,13 +1709,13 @@ export default function AdminDashboard() {
                       }
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <button
-                        onClick={() => handleCustomerClick(customer)}
+                      <Link
+                        href={`/api-requests?userId=${customer.userId}`}
                         className="text-indigo-600 hover:text-indigo-900 flex items-center"
                       >
                         <EyeIcon className="h-4 w-4 mr-1" />
                         View Details
-                      </button>
+                      </Link>
                     </td>
                   </tr>
                 ))}

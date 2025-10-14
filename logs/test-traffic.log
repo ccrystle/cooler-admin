@@ -1,0 +1,550 @@
+Tue Oct 14 06:12:22 EDT 2025: Generating test traffic - Product: Test Product 1760436742, Price: 271
+{"message":"Unauthorized","statusCode":401}
+Response Time: 0.202123s
+HTTP Status: 401
+---
+Tue Oct 14 06:12:36 EDT 2025: Generating test traffic - Product: Test Product 1760436756, Price: 897
+{"id":"73ed61e9-78b9-49b3-a971-83ac211caaee","items":[{"id":"ca5139b2-5de2-4180-933e-402ac41fd944","submission":{"id":"97bf19c0-b1dd-4171-a017-179abc6f0c99","zip":"02062","currency":"USD","title":"Test Product 1760436756","price":897,"category":"Sports & Outdoors","description":"Mock product data - Sports & Outdoors","isUsed":false},"footprint":{"id":"a99f57bc-8b52-4a91-b970-c325ed76bf95","currency":"USD","expiresAt":"2025-10-21T10:12:42.386Z","carbonFootprint":492}}],"dateCreated":"2025-10-14T10:12:37.101Z"}
+Response Time: 5.435667s
+HTTP Status: 201
+---
+Tue Oct 14 06:14:00 EDT 2025: Generating test traffic - Product: Test Product 1760436840, Price: 196
+{"id":"054a31dc-a6c3-4caf-bf54-8a363a67bdf1","items":[{"id":"b5b5b58b-d82b-47c4-915b-8d314025891d","submission":{"id":"b96332ee-70bd-483e-b2cd-867d955692b5","zip":"10001","currency":"USD","title":"Test Product 1760436840","price":196,"description":"Mock product data - Sports & Outdoors","isUsed":false},"footprint":{"id":"8b68c110-c70b-4fc5-93c9-66f5e4a2d9eb","currency":"USD","expiresAt":"2025-10-21T10:14:01.307Z","carbonFootprint":82}}],"dateCreated":"2025-10-14T10:14:01.017Z"}
+Response Time: 0.520779s
+HTTP Status: 201
+---
+Tue Oct 14 06:16:00 EDT 2025: Generating test traffic - Product: Test Product 1760436960, Price: 75
+{"id":"2ba4a5bc-972b-4930-b375-d9f9b7d5a825","items":[{"id":"a6d2ac80-6847-4398-80b3-342e53cb9e6b","submission":{"id":"d8b06b63-5382-44df-8265-c82fcc51f672","zip":"10001","currency":"USD","title":"Test Product 1760436960","price":75,"description":"API test product - Health & Beauty","isUsed":false},"footprint":{"id":"c16c2beb-90d7-4d80-bbe6-adf8fdce7875","currency":"USD","expiresAt":"2025-10-21T10:16:01.106Z","carbonFootprint":31}}],"dateCreated":"2025-10-14T10:16:00.848Z"}
+Response Time: 0.428543s
+HTTP Status: 201
+---
+Tue Oct 14 06:18:00 EDT 2025: Generating test traffic - Product: Test Product 1760437080, Price: 352
+{"id":"31423f0a-7546-471b-9176-9c77ec2461c3","items":[{"id":"4e0a4ad8-be3c-4fe1-83b1-a155cc90994e","submission":{"id":"ceaa0316-9b10-44f1-a683-8e18ccfd35c8","zip":"10001","currency":"USD","title":"Test Product 1760437080","price":352,"description":"Sample item for API testing - Home & Garden","isUsed":false},"footprint":{"id":"0d7abfa6-383d-48a1-98a3-f1af39605877","currency":"USD","expiresAt":"2025-10-21T10:18:01.735Z","carbonFootprint":147}}],"dateCreated":"2025-10-14T10:18:00.555Z"}
+Response Time: 1.330705s
+HTTP Status: 201
+---
+Tue Oct 14 06:20:01 EDT 2025: Generating test traffic - Product: Test Product 1760437201, Price: 942
+{"id":"aaab2664-d521-4aaa-95cf-29e4a72f6300","items":[{"id":"ecc09fbb-af14-4046-91a4-3d68cef88037","submission":{"id":"d281180f-7f6c-494a-b7c4-30a9cbcccf2f","zip":"98101","currency":"USD","title":"Test Product 1760437201","price":942,"description":"Sample item for API testing - Home & Garden","isUsed":false},"footprint":{"id":"34820b76-15b9-470e-84ef-0b5c3d027802","currency":"USD","expiresAt":"2025-10-21T10:20:01.603Z","carbonFootprint":538}}],"dateCreated":"2025-10-14T10:20:01.244Z"}
+Response Time: 0.650350s
+HTTP Status: 201
+---
+Tue Oct 14 06:22:00 EDT 2025: Generating test traffic - Product: Test Product 1760437320, Price: 788
+{"id":"b2f11fe5-929c-4763-89fa-1e01818bf8b9","items":[{"id":"af2af6ae-add0-4b9f-a910-057c51b9a324","submission":{"id":"9bae2551-7ecb-4066-8b69-661b522bf1a8","zip":"90210","currency":"USD","title":"Test Product 1760437320","price":788,"description":"Monitoring test item - Automotive","isUsed":false},"footprint":{"id":"a67a9892-778c-4e18-a5d0-34e2b31a0724","currency":"USD","expiresAt":"2025-10-21T10:22:01.509Z","carbonFootprint":370}}],"dateCreated":"2025-10-14T10:22:01.059Z"}
+Response Time: 0.670597s
+HTTP Status: 201
+---
+Tue Oct 14 06:24:00 EDT 2025: Generating test traffic - Product: Test Product 1760437440, Price: 96
+{"id":"54a7d278-3a5f-44a3-8949-9302bcfbd2ec","items":[{"id":"e8ba664c-eb57-4c01-ae7a-15265fd7e5a4","submission":{"id":"45772536-4ba9-43ef-8f44-e0b6c0749fdf","zip":"10001","currency":"USD","title":"Test Product 1760437440","price":96,"description":"Mock product data - Sports & Outdoors","isUsed":false},"footprint":{"id":"2a6c6d90-ba1f-4810-a1db-af4661896f6d","currency":"USD","expiresAt":"2025-10-21T10:24:01.277Z","carbonFootprint":40}}],"dateCreated":"2025-10-14T10:24:00.979Z"}
+Response Time: 0.445075s
+HTTP Status: 201
+---
+Tue Oct 14 06:26:00 EDT 2025: Generating test traffic - Product: Test Product 1760437560, Price: 297
+{"id":"2cd18243-dc75-41a7-90ac-e83495c8da05","items":[{"id":"c91ca351-7938-4703-a0d8-c090604b6b34","submission":{"id":"b947e6e2-a7c3-45f7-abff-64370371759f","zip":"60601","currency":"USD","title":"Test Product 1760437560","price":297,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"1893e0ba-c9fe-4b26-a26b-7056b9d5c7e4","currency":"USD","expiresAt":"2025-10-21T10:26:00.930Z","carbonFootprint":167}}],"dateCreated":"2025-10-14T10:26:00.656Z"}
+Response Time: 0.423562s
+HTTP Status: 201
+---
+Tue Oct 14 06:28:00 EDT 2025: Generating test traffic - Product: Test Product 1760437680, Price: 211
+{"id":"5048eb4d-a41b-4151-8693-6a92be937f2b","items":[{"id":"449a4349-8ced-4f56-9b6c-840593e8723e","submission":{"id":"80d836ed-cb5d-4f42-89f0-8e8ca1a01dc2","zip":"02101","currency":"USD","title":"Test Product 1760437680","price":211,"description":"Monitoring test item - Automotive","isUsed":false},"footprint":{"id":"3fcaf79c-29c9-4396-b491-d1af68536e48","currency":"USD","expiresAt":"2025-10-21T10:28:00.585Z","carbonFootprint":80}}],"dateCreated":"2025-10-14T10:28:00.317Z"}
+Response Time: 0.418700s
+HTTP Status: 201
+---
+Tue Oct 14 06:30:00 EDT 2025: Generating test traffic - Product: Test Product 1760437800, Price: 604
+{"id":"fdde3ef2-6ee8-401c-8274-92e155f36052","items":[{"id":"4a86e19e-5438-44ba-bb6d-5a22a656b776","submission":{"id":"7e2783f3-cfd0-4970-b969-4d341f04c09a","zip":"10001","currency":"USD","title":"Test Product 1760437800","price":604,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"37fa133c-bfec-41be-9992-7866bb248908","currency":"USD","expiresAt":"2025-10-21T10:30:01.216Z","carbonFootprint":252}}],"dateCreated":"2025-10-14T10:30:00.960Z"}
+Response Time: 0.454448s
+HTTP Status: 201
+---
+Tue Oct 14 06:32:00 EDT 2025: Generating test traffic - Product: Test Product 1760437920, Price: 773
+{"id":"118c882c-bbe0-4f88-af7a-ae5e1cbedb4f","items":[{"id":"d298e358-42be-4593-a836-3e166d1e6009","submission":{"id":"0d79f4ee-24a7-42ae-88b5-068d4beda1fe","zip":"02101","currency":"USD","title":"Test Product 1760437920","price":773,"description":"API test product - Health & Beauty","isUsed":false},"footprint":{"id":"aebfda5f-cf7d-40bd-8c16-2c1bccfa2142","currency":"USD","expiresAt":"2025-10-21T10:32:00.931Z","carbonFootprint":293}}],"dateCreated":"2025-10-14T10:32:00.639Z"}
+Response Time: 0.434912s
+HTTP Status: 201
+---
+Tue Oct 14 06:34:00 EDT 2025: Generating test traffic - Product: Test Product 1760438040, Price: 280
+{"id":"1cbc4ee8-cd02-480d-9403-6bfc492eab61","items":[{"id":"e263f298-1b1f-4102-92a1-75ec9f8f65bd","submission":{"id":"0ac6559e-e151-4544-a3db-407d62356860","zip":"10001","currency":"USD","title":"Test Product 1760438040","price":280,"description":"Test traffic generation - Books","isUsed":false},"footprint":{"id":"a3edf0aa-ca43-4584-ad74-4f57cd8752a8","currency":"USD","expiresAt":"2025-10-21T10:34:00.574Z","carbonFootprint":117}}],"dateCreated":"2025-10-14T10:34:00.283Z"}
+Response Time: 0.441217s
+HTTP Status: 201
+---
+Tue Oct 14 06:36:00 EDT 2025: Generating test traffic - Product: Test Product 1760438160, Price: 708
+{"id":"2fcdb18e-039f-435c-8d22-f1fcaf0b8ba2","items":[{"id":"1d126fed-61b7-458b-9fcb-65b7e4a78762","submission":{"id":"ef0ef7a6-485f-41af-a36f-6c854f27acd1","zip":"30309","currency":"USD","title":"Test Product 1760438160","price":708,"description":"Mock product data - Sports & Outdoors","isUsed":false},"footprint":{"id":"231dad57-a9b9-4793-9212-69c91d24051a","currency":"USD","expiresAt":"2025-10-21T10:36:01.274Z","carbonFootprint":309}}],"dateCreated":"2025-10-14T10:36:01.013Z"}
+Response Time: 0.428650s
+HTTP Status: 201
+---
+Tue Oct 14 06:38:00 EDT 2025: Generating test traffic - Product: Test Product 1760438280, Price: 990
+{"id":"f3f47a4f-a747-4c7e-b14c-f48e758c8e95","items":[{"id":"4bbbd83a-178f-429e-994f-cac220a144ee","submission":{"id":"34859704-2abf-4b42-986d-c2d52dadd5ca","zip":"60601","currency":"USD","title":"Test Product 1760438280","price":990,"description":"API test product - Health & Beauty","isUsed":false},"footprint":{"id":"ff8e94bd-6ac7-4d6f-8aa8-c1e9fc36cb16","currency":"USD","expiresAt":"2025-10-21T10:38:00.966Z","carbonFootprint":555}}],"dateCreated":"2025-10-14T10:38:00.710Z"}
+Response Time: 0.394108s
+HTTP Status: 201
+---
+Tue Oct 14 06:40:00 EDT 2025: Generating test traffic - Product: Test Product 1760438400, Price: 293
+{"id":"2b2970bb-8aa8-43f9-9593-4ba9a28f0c05","items":[{"id":"a309bb77-f95b-4705-a4f9-5981722e1d55","submission":{"id":"db54a790-7ad2-4924-9d68-8e2d050ff419","zip":"60601","currency":"USD","title":"Test Product 1760438400","price":293,"description":"Test traffic generation - Books","isUsed":false},"footprint":{"id":"11dff756-d07c-4271-9b42-21b2fd9f1f6d","currency":"USD","expiresAt":"2025-10-21T10:40:00.674Z","carbonFootprint":164}}],"dateCreated":"2025-10-14T10:40:00.418Z"}
+Response Time: 0.434521s
+HTTP Status: 201
+---
+Tue Oct 14 06:42:00 EDT 2025: Generating test traffic - Product: Test Product 1760438520, Price: 134
+{"id":"efad0181-7cbe-4005-883f-5a0d8ea92454","items":[{"id":"d20a423c-6612-4838-a75a-74ddb52809a5","submission":{"id":"4b65637d-d370-45fe-8fc5-e2d6a45e49a7","zip":"90210","currency":"USD","title":"Test Product 1760438520","price":134,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"c83be61d-e3ca-46ee-994b-73081254ddeb","currency":"USD","expiresAt":"2025-10-21T10:42:01.331Z","carbonFootprint":63}}],"dateCreated":"2025-10-14T10:42:01.075Z"}
+Response Time: 0.411055s
+HTTP Status: 201
+---
+Tue Oct 14 06:44:00 EDT 2025: Generating test traffic - Product: Test Product 1760438640, Price: 326
+{"id":"71c5e3d6-edd1-4b0a-8af7-4fe82a7bce1f","items":[{"id":"cd7a7b6f-f3f1-4451-8040-163521c710a9","submission":{"id":"b0299e7e-fd21-4a4a-924f-776dd9c31a55","zip":"98101","currency":"USD","title":"Test Product 1760438640","price":326,"description":"API test product - Health & Beauty","isUsed":false},"footprint":{"id":"6eaa657e-0b84-4ba4-b4d0-89327cb1da83","currency":"USD","expiresAt":"2025-10-21T10:44:00.863Z","carbonFootprint":186}}],"dateCreated":"2025-10-14T10:44:00.612Z"}
+Response Time: 0.445505s
+HTTP Status: 201
+---
+Tue Oct 14 06:46:00 EDT 2025: Generating test traffic - Product: Test Product 1760438760, Price: 81
+{"id":"c9a3c3ca-3fc5-4d8b-8d26-7b51f640b19a","items":[{"id":"68305aa3-0883-4e03-9d75-cf6a1d48686f","submission":{"id":"2be9ef6d-b304-4a68-bc5f-b9e8877bac59","zip":"90210","currency":"USD","title":"Test Product 1760438760","price":81,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"90c6c7c2-2c73-4f32-a2b3-9ce17a8afda0","currency":"USD","expiresAt":"2025-10-21T10:46:00.462Z","carbonFootprint":38}}],"dateCreated":"2025-10-14T10:46:00.210Z"}
+Response Time: 0.465943s
+HTTP Status: 201
+---
+Tue Oct 14 06:48:00 EDT 2025: Generating test traffic - Product: Test Product 1760438880, Price: 906
+{"id":"7097e95d-f692-4949-9909-220bb2057dbc","items":[{"id":"62335901-2c52-4ce9-89c9-fd65ed75d58e","submission":{"id":"cb0a7ddb-0f1a-4f06-8301-9daece4408f5","zip":"98101","currency":"USD","title":"Test Product 1760438880","price":906,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"082c478a-c074-4291-b470-d54be484a5ca","currency":"USD","expiresAt":"2025-10-21T10:48:01.222Z","carbonFootprint":517}}],"dateCreated":"2025-10-14T10:48:00.929Z"}
+Response Time: 0.540365s
+HTTP Status: 201
+---
+Tue Oct 14 06:50:00 EDT 2025: Generating test traffic - Product: Test Product 1760439000, Price: 812
+{"id":"0d9f0d78-8bce-4607-a9c0-adbd1f686e83","items":[{"id":"40015ccb-ee7e-4c74-9c0a-73524d431233","submission":{"id":"c2555e3d-c0d8-4d96-89fe-a733f6afb15a","zip":"98101","currency":"USD","title":"Test Product 1760439000","price":812,"description":"Monitoring test item - Automotive","isUsed":false},"footprint":{"id":"309767c6-2a3f-4e11-9386-c13ad5cff615","currency":"USD","expiresAt":"2025-10-21T10:50:00.902Z","carbonFootprint":464}}],"dateCreated":"2025-10-14T10:50:00.644Z"}
+Response Time: 0.411411s
+HTTP Status: 201
+---
+Tue Oct 14 06:52:00 EDT 2025: Generating test traffic - Product: Test Product 1760439120, Price: 135
+{"id":"b271a724-8966-471e-ba76-1ecee9782ac4","items":[{"id":"7687002b-41b4-481d-80ee-6230046da696","submission":{"id":"2dfb4b6d-1f05-4c55-9607-a893f4917b10","zip":"90210","currency":"USD","title":"Test Product 1760439120","price":135,"description":"Mock product data - Sports & Outdoors","isUsed":false},"footprint":{"id":"844f6095-16dc-4e10-a2e4-5e57fb231c9c","currency":"USD","expiresAt":"2025-10-21T10:52:00.652Z","carbonFootprint":63}}],"dateCreated":"2025-10-14T10:52:00.318Z"}
+Response Time: 0.478855s
+HTTP Status: 201
+---
+Tue Oct 14 06:54:00 EDT 2025: Generating test traffic - Product: Test Product 1760439240, Price: 949
+{"id":"c30f05df-3d03-4260-8f88-0c8b3b346556","items":[{"id":"fb27f5fe-dc8e-4ac6-b408-0308ec4c1291","submission":{"id":"b8599eaf-e4d5-4bc3-a198-88fca6aa0a3a","zip":"10001","currency":"USD","title":"Test Product 1760439240","price":949,"description":"Monitoring test item - Automotive","isUsed":false},"footprint":{"id":"17d74633-4bb9-4625-afab-bd4e088d6d17","currency":"USD","expiresAt":"2025-10-21T10:54:01.337Z","carbonFootprint":397}}],"dateCreated":"2025-10-14T10:54:01.062Z"}
+Response Time: 0.423394s
+HTTP Status: 201
+---
+Tue Oct 14 06:56:00 EDT 2025: Generating test traffic - Product: Test Product 1760439360, Price: 55
+{"id":"2265522c-a8c6-4ece-8771-b22cc11d7e5f","items":[{"id":"04df917a-a88c-4c6a-9c95-343c21a9bc04","submission":{"id":"31a77bfe-7aa5-431c-bc36-68e15f42322b","zip":"90210","currency":"USD","title":"Test Product 1760439360","price":55,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"ed25c343-735b-451c-b564-2271c73424a1","currency":"USD","expiresAt":"2025-10-21T10:56:01.000Z","carbonFootprint":26}}],"dateCreated":"2025-10-14T10:56:00.751Z"}
+Response Time: 0.394177s
+HTTP Status: 201
+---
+Tue Oct 14 09:01:11 EDT 2025: Generating test traffic - Product: Test Product 1760446871, Price: 203
+
+Response Time: 0.000091s
+HTTP Status: 000
+---
+Tue Oct 14 09:02:00 EDT 2025: Generating test traffic - Product: Test Product 1760446920, Price: 152
+{"id":"840b9a19-04b1-4dab-9d1c-3943a69ed927","items":[{"id":"2aee07ff-42be-41a9-b23d-70ff140e0e80","submission":{"id":"f6f69169-61d9-4d9c-9577-5abe9b4e681d","zip":"10001","currency":"USD","title":"Test Product 1760446920","price":152,"description":"API test product - Health & Beauty","isUsed":false},"footprint":{"id":"7cd82a87-b98c-4b1b-ad74-520953d8f5e4","currency":"USD","expiresAt":"2025-10-21T13:02:01.378Z","carbonFootprint":64}}],"dateCreated":"2025-10-14T13:02:01.055Z"}
+Response Time: 0.693444s
+HTTP Status: 201
+---
+Tue Oct 14 09:04:00 EDT 2025: Generating test traffic - Product: Test Product 1760447040, Price: 246
+{"id":"a96d2372-b715-4243-ac78-55e17d0d20a1","items":[{"id":"7691e40a-b534-4d8d-8a1d-c442a882f6f9","submission":{"id":"cc7faf64-870d-4934-a9f2-ecc5bf970d25","zip":"02062","currency":"USD","title":"Test Product 1760447040","price":246,"description":"Monitoring test item - Automotive","isUsed":false},"footprint":{"id":"7024cda3-0e80-40b1-9b24-5ab0fd132900","currency":"USD","expiresAt":"2025-10-21T13:04:01.187Z","carbonFootprint":135}}],"dateCreated":"2025-10-14T13:04:00.890Z"}
+Response Time: 0.447928s
+HTTP Status: 201
+---
+Tue Oct 14 09:06:00 EDT 2025: Generating test traffic - Product: Test Product 1760447160, Price: 183
+{"id":"e6c4c59b-f8cc-4f87-89a0-37e38483ab63","items":[{"id":"3c89b70a-ebf0-4358-bed4-7eda3c7e7c15","submission":{"id":"3327f270-7509-4add-aafc-16718e5a7053","zip":"98101","currency":"USD","title":"Test Product 1760447160","price":183,"description":"Mock product data - Sports & Outdoors","isUsed":false},"footprint":{"id":"0ddc39cd-5392-4476-af43-98fd19f96f62","currency":"USD","expiresAt":"2025-10-21T13:06:00.978Z","carbonFootprint":105}}],"dateCreated":"2025-10-14T13:06:00.705Z"}
+Response Time: 0.423504s
+HTTP Status: 201
+---
+Tue Oct 14 09:08:00 EDT 2025: Generating test traffic - Product: Test Product 1760447280, Price: 869
+{"id":"6477c86e-3f58-4042-9ed8-79dc938611c9","items":[{"id":"0c78802e-8fcb-40f0-a34f-31d4034fbfcd","submission":{"id":"f2c5c5f6-9dc1-41ec-aa70-9d70f031cd6a","zip":"10001","currency":"USD","title":"Test Product 1760447280","price":869,"description":"Test traffic generation - Books","isUsed":false},"footprint":{"id":"588e7c5a-d942-4524-9f7b-770feb9f5f7d","currency":"USD","expiresAt":"2025-10-21T13:08:00.770Z","carbonFootprint":363}}],"dateCreated":"2025-10-14T13:08:00.505Z"}
+Response Time: 0.414270s
+HTTP Status: 201
+---
+Tue Oct 14 09:10:01 EDT 2025: Generating test traffic - Product: Test Product 1760447401, Price: 754
+{"id":"bb3460fe-b2b0-413e-bd9f-f217a77b8753","items":[{"id":"a4637c26-89fd-4719-9b83-c59e66dde798","submission":{"id":"e29b4eab-1cc1-4751-bba6-a4de9190053f","zip":"02062","currency":"USD","title":"Test Product 1760447401","price":754,"description":"Monitoring test item - Automotive","isUsed":false},"footprint":{"id":"67b33e0a-9239-4f53-b8ec-2b192ea0dfef","currency":"USD","expiresAt":"2025-10-21T13:10:01.535Z","carbonFootprint":414}}],"dateCreated":"2025-10-14T13:10:01.279Z"}
+Response Time: 0.417293s
+HTTP Status: 201
+---
+Tue Oct 14 09:12:00 EDT 2025: Generating test traffic - Product: Test Product 1760447520, Price: 331
+{"id":"34354ee0-82f1-4d1d-9586-3b9bda1b66dd","items":[{"id":"7c7fb89b-bb47-40af-85b2-768b7cc620b7","submission":{"id":"390edd1e-9ffa-449a-a744-78e41521e5b1","zip":"10001","currency":"USD","title":"Test Product 1760447520","price":331,"description":"Mock product data - Sports & Outdoors","isUsed":false},"footprint":{"id":"c05a6f69-65c6-4156-93cf-ccbe6ddf4b70","currency":"USD","expiresAt":"2025-10-21T13:12:01.243Z","carbonFootprint":138}}],"dateCreated":"2025-10-14T13:12:00.977Z"}
+Response Time: 0.425091s
+HTTP Status: 201
+---
+Tue Oct 14 09:14:00 EDT 2025: Generating test traffic - Product: Test Product 1760447640, Price: 511
+{"id":"8354483e-4ceb-49a2-8f5e-b495945cb615","items":[{"id":"2e2cf862-217e-45a0-9e79-70ade12c9955","submission":{"id":"006f7b81-3ff5-4b52-9d82-1b141c236783","zip":"60601","currency":"USD","title":"Test Product 1760447640","price":511,"description":"Monitoring test item - Automotive","isUsed":false},"footprint":{"id":"e2dece50-76c4-489f-9a7e-58adb39a94cf","currency":"USD","expiresAt":"2025-10-21T13:14:00.955Z","carbonFootprint":287}}],"dateCreated":"2025-10-14T13:14:00.700Z"}
+Response Time: 0.403046s
+HTTP Status: 201
+---
+Tue Oct 14 09:16:00 EDT 2025: Generating test traffic - Product: Test Product 1760447760, Price: 18
+{"id":"77bcb8f6-4643-4f5b-a267-71c480af67c8","items":[{"id":"a1396fe8-9729-4de9-a388-17001d074e01","submission":{"id":"9ed9e6ae-88cf-4426-9a1e-d5818cc72c01","zip":"30309","currency":"USD","title":"Test Product 1760447760","price":18,"description":"Mock product data - Sports & Outdoors","isUsed":false},"footprint":{"id":"b0edcf37-5ab8-4a8a-b7e7-1f9e0c67a9b6","currency":"USD","expiresAt":"2025-10-21T13:16:00.715Z","carbonFootprint":8}}],"dateCreated":"2025-10-14T13:16:00.454Z"}
+Response Time: 0.426775s
+HTTP Status: 201
+---
+Tue Oct 14 09:18:01 EDT 2025: Generating test traffic - Product: Test Product 1760447881, Price: 457
+{"id":"00143ce2-5e07-4ba4-827c-8136386cb85b","items":[{"id":"19d2c7be-a4ec-4040-bf94-9c00f7186920","submission":{"id":"e1a7de73-8c72-4352-a9e9-8e45388cdd15","zip":"98101","currency":"USD","title":"Test Product 1760447881","price":457,"description":"Automated test traffic - Electronics","isUsed":false},"footprint":{"id":"5fd16ecc-302c-4d64-9669-dfa01a8ebe05","currency":"USD","expiresAt":"2025-10-21T13:18:01.458Z","carbonFootprint":261}}],"dateCreated":"2025-10-14T13:18:01.190Z"}
+Response Time: 0.503187s
+HTTP Status: 201
+---
+Tue Oct 14 09:20:00 EDT 2025: Generating test traffic - Product: Test Product 1760448000, Price: 533
+{"id":"fdf1865b-2367-4400-9f9b-6ddba68cff25","items":[{"id":"1dbef4c6-4e86-4326-a179-b7e8a2ede122","submission":{"id":"14692516-a701-4cdc-a78e-3e8a19c9076f","zip":"98101","currency":"USD","title":"Test Product 1760448000","price":533,"description":"Test traffic generation - Books","isUsed":false},"footprint":{"id":"1e3f9b0a-67c8-4d7c-a8dc-9a4e8da37cdc","currency":"USD","expiresAt":"2025-10-21T13:20:01.214Z","carbonFootprint":304}}],"dateCreated":"2025-10-14T13:20:00.957Z"}
+Response Time: 0.403433s
+HTTP Status: 201
+---
+Tue Oct 14 09:22:00 EDT 2025: Generating test traffic - Product: Test Product 1760448120, Price: 750
+{"id":"8d2961bb-7b25-46a3-b46a-f73f28f640fa","items":[{"id":"f143f658-670f-4d22-8ea4-7d9e8dbaf7f2","submission":{"id":"252a0b12-ef61-4684-9d19-2c05b2431fb5","zip":"60601","currency":"USD","title":"Test Product 1760448120","price":750,"description":"Automated test traffic - Electronics","isUsed":false},"footprint":{"id":"d81749cb-a601-4693-a7df-47435a690026","currency":"USD","expiresAt":"2025-10-21T13:22:01.009Z","carbonFootprint":421}}],"dateCreated":"2025-10-14T13:22:00.718Z"}
+Response Time: 0.465694s
+HTTP Status: 201
+---
+Tue Oct 14 09:24:00 EDT 2025: Generating test traffic - Product: Test Product 1760448240, Price: 490
+{"id":"4d82fc18-25d6-41ec-b66d-d2f073dad49b","items":[{"id":"20a93dba-66d7-4b44-ba9a-ca87c7de000e","submission":{"id":"ceecf020-f09a-412f-8638-2100b36ff185","zip":"10001","currency":"USD","title":"Test Product 1760448240","price":490,"description":"Mock product data - Sports & Outdoors","isUsed":false},"footprint":{"id":"4b40c8be-f8d2-42c7-ae92-86e2905b79fb","currency":"USD","expiresAt":"2025-10-21T13:24:00.718Z","carbonFootprint":205}}],"dateCreated":"2025-10-14T13:24:00.465Z"}
+Response Time: 0.399716s
+HTTP Status: 201
+---
+Tue Oct 14 09:26:00 EDT 2025: Generating test traffic - Product: Test Product 1760448360, Price: 226
+{"id":"996c7979-c295-40b2-b780-02856b86b52e","items":[{"id":"a78f7bf0-6c0d-461e-99ec-cd3e246d481d","submission":{"id":"68f10d37-3bcf-4924-8408-5117fdf4bc68","zip":"90210","currency":"USD","title":"Test Product 1760448360","price":226,"description":"API test product - Health & Beauty","isUsed":false},"footprint":{"id":"fffd2dba-5d21-43b1-b08a-00582e8e9d9c","currency":"USD","expiresAt":"2025-10-21T13:26:01.407Z","carbonFootprint":106}}],"dateCreated":"2025-10-14T13:26:01.113Z"}
+Response Time: 0.453135s
+HTTP Status: 201
+---
+Tue Oct 14 09:28:00 EDT 2025: Generating test traffic - Product: Test Product 1760448480, Price: 401
+{"id":"92e71f11-8c84-4239-849d-35ce4e33ed34","items":[{"id":"3a20f6a8-65d6-47c0-ac7d-b140a43c5a32","submission":{"id":"7037360b-6015-4e08-98ec-aea0b8e6e3d2","zip":"30309","currency":"USD","title":"Test Product 1760448480","price":401,"description":"Sample item for API testing - Home & Garden","isUsed":false},"footprint":{"id":"1de7fc05-7b78-4fa8-bc2e-3b463c0fef5e","currency":"USD","expiresAt":"2025-10-21T13:28:01.104Z","carbonFootprint":175}}],"dateCreated":"2025-10-14T13:28:00.851Z"}
+Response Time: 0.425790s
+HTTP Status: 201
+---
+Tue Oct 14 09:30:00 EDT 2025: Generating test traffic - Product: Test Product 1760448600, Price: 247
+{"id":"a0250557-1bd5-4538-97b8-e23f1578850f","items":[{"id":"247b5592-99e8-4055-aeda-feea50cd7ce1","submission":{"id":"41a50078-52e3-42b8-9621-9af26a03fa3c","zip":"90210","currency":"USD","title":"Test Product 1760448600","price":247,"description":"Monitoring test item - Automotive","isUsed":false},"footprint":{"id":"e9a149b6-eca9-43cb-a0d2-914205bbe954","currency":"USD","expiresAt":"2025-10-21T13:30:01.002Z","carbonFootprint":116}}],"dateCreated":"2025-10-14T13:30:00.542Z"}
+Response Time: 0.626097s
+HTTP Status: 201
+---
+Tue Oct 14 09:32:00 EDT 2025: Generating test traffic - Product: Test Product 1760448720, Price: 599
+{"id":"adb0e653-31bf-4219-a38a-5a47a2f23e35","items":[{"id":"5072fe2d-297d-4444-a70e-2a5cbdc3eb04","submission":{"id":"a9c1e93d-7d6f-43c0-9c54-46c4f909bfa2","zip":"10001","currency":"USD","title":"Test Product 1760448720","price":599,"description":"Automated test traffic - Electronics","isUsed":false},"footprint":{"id":"ea5853b6-7ddd-4584-a5a6-9a1d66016b8e","currency":"USD","expiresAt":"2025-10-21T13:32:00.646Z","carbonFootprint":250}}],"dateCreated":"2025-10-14T13:32:00.381Z"}
+Response Time: 0.410169s
+HTTP Status: 201
+---
+Tue Oct 14 09:34:00 EDT 2025: Generating test traffic - Product: Test Product 1760448840, Price: 16
+{"id":"7897582b-12b3-423e-9518-dae4e8224627","items":[{"id":"59442486-c2ea-4b1c-969d-1ea5305881e1","submission":{"id":"df31cf0e-7e3c-48b7-b8e2-50dab39a45b4","zip":"10001","currency":"USD","title":"Test Product 1760448840","price":16,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"af17ca39-b015-49f8-b05a-885bc4c1cdd6","currency":"USD","expiresAt":"2025-10-21T13:34:01.373Z","carbonFootprint":7}}],"dateCreated":"2025-10-14T13:34:01.081Z"}
+Response Time: 0.482671s
+HTTP Status: 201
+---
+Tue Oct 14 09:36:00 EDT 2025: Generating test traffic - Product: Test Product 1760448960, Price: 405
+{"id":"3c75ed40-f5be-4ca1-84d2-9908a0abce2d","items":[{"id":"617bb6e8-2094-4b66-be24-b6ca76fc7f88","submission":{"id":"090afeee-69aa-4dcd-bbfe-11450632cd65","zip":"60601","currency":"USD","title":"Test Product 1760448960","price":405,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"1d36327a-f2e9-4d9f-9899-3ec7327378a5","currency":"USD","expiresAt":"2025-10-21T13:36:01.030Z","carbonFootprint":227}}],"dateCreated":"2025-10-14T13:36:00.766Z"}
+Response Time: 0.427381s
+HTTP Status: 201
+---
+Tue Oct 14 09:38:00 EDT 2025: Generating test traffic - Product: Test Product 1760449080, Price: 622
+{"id":"0cc46368-8b52-40d5-b4c0-4f3e2eb7377d","items":[{"id":"62e33d25-6efc-4328-a1bc-5fccfdabb1f2","submission":{"id":"eb781dbc-a7bd-44d7-b8ba-fd9efce6e11b","zip":"10001","currency":"USD","title":"Test Product 1760449080","price":622,"description":"Test traffic generation - Books","isUsed":false},"footprint":{"id":"37acd377-73a9-4302-9686-421fc7236d35","currency":"USD","expiresAt":"2025-10-21T13:38:00.717Z","carbonFootprint":260}}],"dateCreated":"2025-10-14T13:38:00.430Z"}
+Response Time: 0.449449s
+HTTP Status: 201
+---
+Tue Oct 14 09:40:00 EDT 2025: Generating test traffic - Product: Test Product 1760449200, Price: 264
+{"id":"afc0ba56-43c6-4131-9410-18611d71c589","items":[{"id":"2b8896ae-b6b9-43f3-9231-a19ffc01b5ec","submission":{"id":"c6faa385-087e-4470-9921-171e2d129061","zip":"30309","currency":"USD","title":"Test Product 1760449200","price":264,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"cffdf1ea-c11e-46c8-bb5a-4c7a6c88b161","currency":"USD","expiresAt":"2025-10-21T13:40:01.450Z","carbonFootprint":115}}],"dateCreated":"2025-10-14T13:40:01.106Z"}
+Response Time: 0.503082s
+HTTP Status: 201
+---
+Tue Oct 14 09:42:00 EDT 2025: Generating test traffic - Product: Test Product 1760449320, Price: 293
+{"id":"7e2254fd-b135-4fc9-8445-346a2b1fb9f3","items":[{"id":"ed386f4e-a6a5-40b5-8424-ad297c44dbe7","submission":{"id":"c69e8915-008b-48bb-8cbe-0f6ce60d5397","zip":"90210","currency":"USD","title":"Test Product 1760449320","price":293,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"83c1d1b8-eab5-409f-9584-b8e6c3140d64","currency":"USD","expiresAt":"2025-10-21T13:42:01.195Z","carbonFootprint":138}}],"dateCreated":"2025-10-14T13:42:00.886Z"}
+Response Time: 0.458426s
+HTTP Status: 201
+---
+Tue Oct 14 09:44:00 EDT 2025: Generating test traffic - Product: Test Product 1760449440, Price: 165
+{"id":"a1ecccdb-a71c-4cbf-96e1-f58291773738","items":[{"id":"6a0f2c72-0a28-48f8-9781-0583345b0585","submission":{"id":"c8084e5c-8553-4300-9acd-8f069ee17d39","zip":"02101","currency":"USD","title":"Test Product 1760449440","price":165,"description":"API test product - Health & Beauty","isUsed":false},"footprint":{"id":"8e8f1806-63a9-4219-840c-c0c09d061000","currency":"USD","expiresAt":"2025-10-21T13:44:00.835Z","carbonFootprint":62}}],"dateCreated":"2025-10-14T13:44:00.590Z"}
+Response Time: 0.402890s
+HTTP Status: 201
+---
+Tue Oct 14 09:46:01 EDT 2025: Generating test traffic - Product: Test Product 1760449561, Price: 447
+{"id":"08ead900-25e7-4ca3-8ab6-a67c46756c3e","items":[{"id":"f9bb8abf-93a3-4235-885b-ae5a56461175","submission":{"id":"2170271c-229f-48f6-8cb0-6c9f62649cae","zip":"98101","currency":"USD","title":"Test Product 1760449561","price":447,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"349c2c8b-f01c-4b5d-a6ae-b2a4c52ef1df","currency":"USD","expiresAt":"2025-10-21T13:46:01.511Z","carbonFootprint":255}}],"dateCreated":"2025-10-14T13:46:01.211Z"}
+Response Time: 0.459264s
+HTTP Status: 201
+---
+Tue Oct 14 09:48:00 EDT 2025: Generating test traffic - Product: Test Product 1760449680, Price: 821
+{"id":"f451e106-babf-401f-a150-7a1ed24fd879","items":[{"id":"1f035aa8-405d-457c-9521-cac18222a66c","submission":{"id":"d26887db-21a5-4801-b8a0-c526b3e37ebc","zip":"98101","currency":"USD","title":"Test Product 1760449680","price":821,"description":"API test product - Health & Beauty","isUsed":false},"footprint":{"id":"6118d26d-0735-4e41-8078-a664a2f18789","currency":"USD","expiresAt":"2025-10-21T13:48:01.127Z","carbonFootprint":469}}],"dateCreated":"2025-10-14T13:48:00.867Z"}
+Response Time: 0.407283s
+HTTP Status: 201
+---
+Tue Oct 14 09:50:00 EDT 2025: Generating test traffic - Product: Test Product 1760449800, Price: 516
+{"id":"2d8d05a3-9755-4d44-a22d-aee8e46c3634","items":[{"id":"077f5680-d147-48fd-9080-a663d3f3f100","submission":{"id":"19d878c0-35ff-4f81-a174-e527dbac1d68","zip":"10001","currency":"USD","title":"Test Product 1760449800","price":516,"description":"API test product - Health & Beauty","isUsed":false},"footprint":{"id":"1695b099-7606-47a0-a146-6798f09dca3f","currency":"USD","expiresAt":"2025-10-21T13:50:00.879Z","carbonFootprint":216}}],"dateCreated":"2025-10-14T13:50:00.584Z"}
+Response Time: 0.477648s
+HTTP Status: 201
+---
+Tue Oct 14 09:52:01 EDT 2025: Generating test traffic - Product: Test Product 1760449921, Price: 910
+{"id":"7e613869-a354-4cdd-ba7d-8ff4048ffb6b","items":[{"id":"bec5ce08-0216-4211-9717-ec22a9f212bb","submission":{"id":"0c482414-0888-4e39-af6b-7cbb7db1462e","zip":"10001","currency":"USD","title":"Test Product 1760449921","price":910,"description":"Automated test traffic - Electronics","isUsed":false},"footprint":{"id":"bfc18ab1-7c4c-4fa0-acde-9229e16ef9db","currency":"USD","expiresAt":"2025-10-21T13:52:01.529Z","carbonFootprint":380}}],"dateCreated":"2025-10-14T13:52:01.272Z"}
+Response Time: 0.424993s
+HTTP Status: 201
+---
+Tue Oct 14 09:54:00 EDT 2025: Generating test traffic - Product: Test Product 1760450040, Price: 717
+{"id":"9558e3f4-8d80-4b95-bc16-5c7e98dfd10b","items":[{"id":"d3739e3b-67d2-4c03-b115-159cceb2270c","submission":{"id":"9d1d1973-dea8-4f66-acf9-6dd4d969b712","zip":"30309","currency":"USD","title":"Test Product 1760450040","price":717,"description":"Monitoring test item - Automotive","isUsed":false},"footprint":{"id":"cebc2b60-295a-41ea-91a9-8dd54201745e","currency":"USD","expiresAt":"2025-10-21T13:54:01.216Z","carbonFootprint":313}}],"dateCreated":"2025-10-14T13:54:00.959Z"}
+Response Time: 0.457463s
+HTTP Status: 201
+---
+Tue Oct 14 09:56:00 EDT 2025: Generating test traffic - Product: Test Product 1760450160, Price: 634
+{"id":"7043b3e2-cc94-46ec-8b95-6cd6462a21ec","items":[{"id":"5f531526-ff36-403e-b555-905fad4389d0","submission":{"id":"addb203f-067c-4198-835a-dfabb82d1d20","zip":"90210","currency":"USD","title":"Test Product 1760450160","price":634,"description":"Automated test traffic - Electronics","isUsed":false},"footprint":{"id":"91d6efa0-3b5d-4012-b48e-9c8336971460","currency":"USD","expiresAt":"2025-10-21T13:56:00.858Z","carbonFootprint":298}}],"dateCreated":"2025-10-14T13:56:00.578Z"}
+Response Time: 0.419830s
+HTTP Status: 201
+---
+Tue Oct 14 09:58:01 EDT 2025: Generating test traffic - Product: Test Product 1760450281, Price: 840
+{"id":"2af6edb4-768f-4082-8993-47058566f5d8","items":[{"id":"9676387b-617f-4351-80ea-7f811a135b64","submission":{"id":"a7eac62f-3c1e-4257-8a43-3c64c6e99123","zip":"90210","currency":"USD","title":"Test Product 1760450281","price":840,"description":"Test traffic generation - Books","isUsed":false},"footprint":{"id":"65e61e1c-89b8-44b8-9455-326f806ef4f7","currency":"USD","expiresAt":"2025-10-21T13:58:01.503Z","carbonFootprint":394}}],"dateCreated":"2025-10-14T13:58:01.222Z"}
+Response Time: 0.441543s
+HTTP Status: 201
+---
+Tue Oct 14 10:00:00 EDT 2025: Generating test traffic - Product: Test Product 1760450400, Price: 783
+{"id":"e77a34fa-b8cc-455f-b496-729793d640b8","items":[{"id":"ffa20f4a-fa63-48a9-84d2-85c06f8ccb6a","submission":{"id":"f50d1ff3-725f-41db-9096-24f717d8887d","zip":"02101","currency":"USD","title":"Test Product 1760450400","price":783,"description":"Sample item for API testing - Home & Garden","isUsed":false},"footprint":{"id":"f14986e2-f12e-4d91-9175-c96418dac241","currency":"USD","expiresAt":"2025-10-21T14:00:01.128Z","carbonFootprint":296}}],"dateCreated":"2025-10-14T14:00:00.874Z"}
+Response Time: 0.403373s
+HTTP Status: 201
+---
+Tue Oct 14 10:02:00 EDT 2025: Generating test traffic - Product: Test Product 1760450520, Price: 887
+{"id":"1833cc06-04d8-4ce5-be85-38b122740b7c","items":[{"id":"f2e89f32-72bc-4e76-aad3-3f09a8b74837","submission":{"id":"62111013-8213-4cca-b1e5-f5445b60d450","zip":"60601","currency":"USD","title":"Test Product 1760450520","price":887,"description":"Automated test traffic - Electronics","isUsed":false},"footprint":{"id":"45adecb5-d711-4cc3-aa5b-f4cabe8f2958","currency":"USD","expiresAt":"2025-10-21T14:02:00.704Z","carbonFootprint":497}}],"dateCreated":"2025-10-14T14:02:00.451Z"}
+Response Time: 0.423825s
+HTTP Status: 201
+---
+Tue Oct 14 10:04:00 EDT 2025: Generating test traffic - Product: Test Product 1760450640, Price: 637
+{"message":"insert or update on table \"transactions\" violates foreign key constraint \"FK_5b86d893321c200c779f9464cac\"","error":"Bad Request","statusCode":400}
+Response Time: 9.060420s
+HTTP Status: 400
+---
+Tue Oct 14 10:06:01 EDT 2025: Generating test traffic - Product: Test Product 1760450761, Price: 313
+{"id":"af16963c-8a3b-44c0-9100-d1c46f585d6c","items":[{"id":"bc128b81-5d0b-4962-ae03-91420cf500a5","submission":{"id":"feeca37f-0632-471d-ab0a-298435028dd1","zip":"02101","currency":"USD","title":"Test Product 1760450761","price":313,"description":"Monitoring test item - Automotive","isUsed":false},"footprint":{"id":"bbe5f131-d481-4416-a7cb-be574f0fca62","currency":"USD","expiresAt":"2025-10-21T14:06:01.460Z","carbonFootprint":118}}],"dateCreated":"2025-10-14T14:06:01.170Z"}
+Response Time: 0.436655s
+HTTP Status: 201
+---
+Tue Oct 14 10:08:00 EDT 2025: Generating test traffic - Product: Test Product 1760450880, Price: 159
+{"id":"7ad7180e-5497-4c0e-a157-9f90a554511e","items":[{"id":"a3cd5304-3aa7-47e6-8560-c722270b109e","submission":{"id":"fd09aa37-03eb-43a4-a7e3-83a1efcdb886","zip":"30309","currency":"USD","title":"Test Product 1760450880","price":159,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"e90d8e7f-fdbe-4dac-9352-f87aa21f48f4","currency":"USD","expiresAt":"2025-10-21T14:08:01.365Z","carbonFootprint":69}}],"dateCreated":"2025-10-14T14:08:00.802Z"}
+Response Time: 0.744385s
+HTTP Status: 201
+---
+Tue Oct 14 10:10:00 EDT 2025: Generating test traffic - Product: Test Product 1760451000, Price: 984
+{"id":"6212c57f-e85f-4efe-b8a3-b24e03b0547a","items":[{"id":"5b2bff25-aba2-43ff-b4e3-7fca15f07ea9","submission":{"id":"d7dcf38e-eeb6-4091-bfdf-7a18d17e12c4","zip":"02062","currency":"USD","title":"Test Product 1760451000","price":984,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"3699173a-ad59-4f9d-8269-4f7bc04b1811","currency":"USD","expiresAt":"2025-10-21T14:10:01.883Z","carbonFootprint":540}}],"dateCreated":"2025-10-14T14:10:00.693Z"}
+Response Time: 1.365412s
+HTTP Status: 201
+---
+Tue Oct 14 10:12:00 EDT 2025: Generating test traffic - Product: Test Product 1760451120, Price: 587
+{"id":"618be26e-22d1-4150-a541-3a3456c43943","items":[{"id":"cacd7bf4-0653-4b12-9161-6d139dcb639d","submission":{"id":"df876cbe-4746-4fde-a24d-954bc06dd15e","zip":"90210","currency":"USD","title":"Test Product 1760451120","price":587,"description":"Automated test traffic - Electronics","isUsed":false},"footprint":{"id":"95e3b8a2-a9a3-41de-8005-4203ca086680","currency":"USD","expiresAt":"2025-10-21T14:12:00.506Z","carbonFootprint":276}}],"dateCreated":"2025-10-14T14:12:00.213Z"}
+Response Time: 0.474493s
+HTTP Status: 201
+---
+Tue Oct 14 10:14:00 EDT 2025: Generating test traffic - Product: Test Product 1760451240, Price: 982
+{"id":"b8f0dd38-f97d-4b5f-b23b-725cdcf57f6e","items":[{"id":"0b8afaef-c60a-4a27-89ff-7e7cf44a5b21","submission":{"id":"d9ba34ff-6812-4661-975d-95a8fba1de02","zip":"60601","currency":"USD","title":"Test Product 1760451240","price":982,"description":"Automated test traffic - Electronics","isUsed":false},"footprint":{"id":"b25e615e-5b1a-44a1-8934-4b147896e4eb","currency":"USD","expiresAt":"2025-10-21T14:14:01.165Z","carbonFootprint":551}}],"dateCreated":"2025-10-14T14:14:00.892Z"}
+Response Time: 0.492175s
+HTTP Status: 201
+---
+Tue Oct 14 10:16:00 EDT 2025: Generating test traffic - Product: Test Product 1760451360, Price: 387
+{"id":"15a3ee46-d32a-4faf-a1dd-fb8d85668fcd","items":[{"id":"7764d05d-d586-4614-a64d-38fbf762ac2e","submission":{"id":"e1ab60f6-d46d-4dfb-a3f0-0b86d0df78b5","zip":"10001","currency":"USD","title":"Test Product 1760451360","price":387,"description":"API test product - Health & Beauty","isUsed":false},"footprint":{"id":"cc2de60f-0359-4c44-befe-1a9277adf2ba","currency":"USD","expiresAt":"2025-10-21T14:16:00.829Z","carbonFootprint":162}}],"dateCreated":"2025-10-14T14:16:00.547Z"}
+Response Time: 0.456259s
+HTTP Status: 201
+---
+Tue Oct 14 10:18:01 EDT 2025: Generating test traffic - Product: Test Product 1760451481, Price: 55
+{"id":"8b6df1e3-befe-4c5d-922a-956a952f56f1","items":[{"id":"5a01ef7b-a8f5-4e5b-889d-152b48329e8c","submission":{"id":"5d320f36-81dd-4a02-acb8-904c271012f6","zip":"60601","currency":"USD","title":"Test Product 1760451481","price":55,"description":"Test traffic generation - Books","isUsed":false},"footprint":{"id":"9613715e-693f-4a01-ac4d-58980c27df11","currency":"USD","expiresAt":"2025-10-21T14:18:01.615Z","carbonFootprint":31}}],"dateCreated":"2025-10-14T14:18:01.307Z"}
+Response Time: 0.552905s
+HTTP Status: 201
+---
+Tue Oct 14 10:20:00 EDT 2025: Generating test traffic - Product: Test Product 1760451600, Price: 771
+{"id":"cecb0658-8230-49d0-a081-03c5de18e2fe","items":[{"id":"1b76095a-d32b-48fd-ba93-bff439ded697","submission":{"id":"29433c06-2c3c-40f6-b25a-35388f7f459e","zip":"02101","currency":"USD","title":"Test Product 1760451600","price":771,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"64ffdd9e-19ff-4734-a5cc-c01ae5837ec0","currency":"USD","expiresAt":"2025-10-21T14:20:01.302Z","carbonFootprint":292}}],"dateCreated":"2025-10-14T14:20:01.000Z"}
+Response Time: 0.468668s
+HTTP Status: 201
+---
+Tue Oct 14 10:22:00 EDT 2025: Generating test traffic - Product: Test Product 1760451720, Price: 262
+{"id":"625b0c07-b191-42b1-83dc-ad8b65a3d4eb","items":[{"id":"1a7debf1-0fd8-4278-ae0d-691a81da7915","submission":{"id":"24767c41-92e4-4dba-9753-9b54df4a6956","zip":"02101","currency":"USD","title":"Test Product 1760451720","price":262,"description":"Sample item for API testing - Home & Garden","isUsed":false},"footprint":{"id":"50eca9d9-822f-4945-b275-d5d86d4e687b","currency":"USD","expiresAt":"2025-10-21T14:22:00.877Z","carbonFootprint":99}}],"dateCreated":"2025-10-14T14:22:00.624Z"}
+Response Time: 0.432662s
+HTTP Status: 201
+---
+Tue Oct 14 10:24:01 EDT 2025: Generating test traffic - Product: Test Product 1760451841, Price: 351
+{"id":"8bd50d15-4d4e-4ef3-b1af-a584db6c5165","items":[{"id":"7db81c17-0c5c-4642-97cf-7bda8ce3e746","submission":{"id":"4c197535-41ca-4a2a-947e-ed2d1ea07c2f","zip":"02101","currency":"USD","title":"Test Product 1760451841","price":351,"description":"Mock product data - Sports & Outdoors","isUsed":false},"footprint":{"id":"822d0ca0-d93e-4c96-84cd-693473fc6d8f","currency":"USD","expiresAt":"2025-10-21T14:24:01.476Z","carbonFootprint":133}}],"dateCreated":"2025-10-14T14:24:01.199Z"}
+Response Time: 0.437528s
+HTTP Status: 201
+---
+Tue Oct 14 10:26:00 EDT 2025: Generating test traffic - Product: Test Product 1760451960, Price: 223
+{"id":"08780882-b30d-4803-965e-953efb266062","items":[{"id":"0caec316-124e-401d-addf-a3388e21799a","submission":{"id":"bce977c8-e718-4482-aaf7-c8680baa9618","zip":"30309","currency":"USD","title":"Test Product 1760451960","price":223,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"61b03d98-70bd-4bed-b100-f91b7487eeff","currency":"USD","expiresAt":"2025-10-21T14:26:01.153Z","carbonFootprint":97}}],"dateCreated":"2025-10-14T14:26:00.877Z"}
+Response Time: 0.501923s
+HTTP Status: 201
+---
+Tue Oct 14 10:28:00 EDT 2025: Generating test traffic - Product: Test Product 1760452080, Price: 714
+{"id":"89431fc1-1df8-4dc2-bd1f-c74c8010d061","items":[{"id":"591f4270-1a90-479c-88a3-400307be7596","submission":{"id":"52f2358d-6592-4248-a00d-63c49d33d869","zip":"30309","currency":"USD","title":"Test Product 1760452080","price":714,"description":"Sample item for API testing - Home & Garden","isUsed":false},"footprint":{"id":"6c150573-f65d-4668-8cae-d68c3a150cc5","currency":"USD","expiresAt":"2025-10-21T14:28:00.769Z","carbonFootprint":312}}],"dateCreated":"2025-10-14T14:28:00.493Z"}
+Response Time: 0.481428s
+HTTP Status: 201
+---
+Tue Oct 14 10:30:00 EDT 2025: Generating test traffic - Product: Test Product 1760452200, Price: 560
+{"id":"7b258047-16e2-494e-8746-323e93196c6d","items":[{"id":"0121e8fb-7f5c-4cf2-b4d8-6d5f90e64196","submission":{"id":"629e803d-36d7-42cc-bbfd-59c55acc68f9","zip":"90210","currency":"USD","title":"Test Product 1760452200","price":560,"description":"Monitoring test item - Automotive","isUsed":false},"footprint":{"id":"12f4f1c2-a6ea-4338-8376-3aed95680195","currency":"USD","expiresAt":"2025-10-21T14:30:01.478Z","carbonFootprint":263}}],"dateCreated":"2025-10-14T14:30:01.112Z"}
+Response Time: 0.512369s
+HTTP Status: 201
+---
+Tue Oct 14 10:32:00 EDT 2025: Generating test traffic - Product: Test Product 1760452320, Price: 122
+{"id":"39a4cee9-a2b5-4f59-a819-a30a47b9631d","items":[{"id":"315f343d-3b07-4af1-829e-f24655fa6885","submission":{"id":"b48efe79-3c35-41b4-ae8f-453d3bbbb995","zip":"10001","currency":"USD","title":"Test Product 1760452320","price":122,"description":"Monitoring test item - Automotive","isUsed":false},"footprint":{"id":"25a36309-1e3e-4877-bf60-ca1ce0442e8a","currency":"USD","expiresAt":"2025-10-21T14:32:01.128Z","carbonFootprint":51}}],"dateCreated":"2025-10-14T14:32:00.837Z"}
+Response Time: 0.434627s
+HTTP Status: 201
+---
+Tue Oct 14 10:34:00 EDT 2025: Generating test traffic - Product: Test Product 1760452440, Price: 59
+{"id":"86398b3e-9146-4089-8b29-fc4d5d91eb98","items":[{"id":"a98f3c49-31a7-4d38-9110-1aecd9ca372d","submission":{"id":"77913ece-5ba3-4b2f-bc26-d60da4d586e8","zip":"02101","currency":"USD","title":"Test Product 1760452440","price":59,"description":"Test traffic generation - Books","isUsed":false},"footprint":{"id":"620ad6bc-b5ed-4b87-8f21-b3ebfcf4dd12","currency":"USD","expiresAt":"2025-10-21T14:34:00.720Z","carbonFootprint":22}}],"dateCreated":"2025-10-14T14:34:00.468Z"}
+Response Time: 0.441783s
+HTTP Status: 201
+---
+Tue Oct 14 10:36:00 EDT 2025: Generating test traffic - Product: Test Product 1760452560, Price: 914
+{"id":"16498bd3-6dea-4bac-b69a-a38dce06bcea","items":[{"id":"ceb745f8-d0ad-4573-8020-e4c9657190d9","submission":{"id":"380b1484-5af1-4ee2-a811-ae16587c6918","zip":"98101","currency":"USD","title":"Test Product 1760452560","price":914,"description":"Automated test traffic - Electronics","isUsed":false},"footprint":{"id":"e65f0e9a-3091-4566-847f-9b2e199ab5aa","currency":"USD","expiresAt":"2025-10-21T14:36:01.332Z","carbonFootprint":522}}],"dateCreated":"2025-10-14T14:36:01.044Z"}
+Response Time: 0.459783s
+HTTP Status: 201
+---
+Tue Oct 14 10:38:00 EDT 2025: Generating test traffic - Product: Test Product 1760452680, Price: 152
+{"id":"3bae72b9-0032-497f-ad2e-c60d1b129b02","items":[{"id":"0023b6e5-aa4e-4637-9c0d-eac7f93186f1","submission":{"id":"799937f8-c1fd-4a1e-8f6e-3f753a8f0680","zip":"30309","currency":"USD","title":"Test Product 1760452680","price":152,"description":"API test product - Health & Beauty","isUsed":false},"footprint":{"id":"d21a105b-e2f5-49cd-87de-0c871af3a438","currency":"USD","expiresAt":"2025-10-21T14:38:00.996Z","carbonFootprint":66}}],"dateCreated":"2025-10-14T14:38:00.670Z"}
+Response Time: 0.486143s
+HTTP Status: 201
+---
+Tue Oct 14 10:40:00 EDT 2025: Generating test traffic - Product: Test Product 1760452800, Price: 585
+{"id":"58c86cfb-ede9-43f0-8d3c-f574d90b1de3","items":[{"id":"758740d4-5abd-49f2-9ef7-bea9edd97b6f","submission":{"id":"b3ce8b6e-ab59-43af-88ac-c6f33204b394","zip":"02101","currency":"USD","title":"Test Product 1760452800","price":585,"description":"Test traffic generation - Books","isUsed":false},"footprint":{"id":"609c19da-5251-490e-8534-be0a627cc84c","currency":"USD","expiresAt":"2025-10-21T14:40:00.633Z","carbonFootprint":221}}],"dateCreated":"2025-10-14T14:40:00.370Z"}
+Response Time: 0.412288s
+HTTP Status: 201
+---
+Tue Oct 14 10:42:00 EDT 2025: Generating test traffic - Product: Test Product 1760452920, Price: 942
+{"id":"0685bad3-a0d1-450e-a8cd-d18ce0899393","items":[{"id":"05277ce4-0a3a-46c5-90ee-0cdfb72d6589","submission":{"id":"8b536ca6-3057-4d50-a2d9-ab1560fcfb31","zip":"90210","currency":"USD","title":"Test Product 1760452920","price":942,"description":"Monitoring test item - Automotive","isUsed":false},"footprint":{"id":"6f645c40-d7c6-4d42-94dc-cf8bf7717a17","currency":"USD","expiresAt":"2025-10-21T14:42:01.342Z","carbonFootprint":442}}],"dateCreated":"2025-10-14T14:42:01.058Z"}
+Response Time: 0.497381s
+HTTP Status: 201
+---
+Tue Oct 14 10:44:00 EDT 2025: Generating test traffic - Product: Test Product 1760453040, Price: 820
+{"id":"c5bb96f7-5223-46cc-b438-4c7786fdb4a8","items":[{"id":"e68d57d0-ffec-407e-b92b-f020f7d86338","submission":{"id":"df848908-4b3e-4a61-a2d2-2f0394ef0bba","zip":"98101","currency":"USD","title":"Test Product 1760453040","price":820,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"9cbc9c16-3672-408f-9d96-8c40f324b9ba","currency":"USD","expiresAt":"2025-10-21T14:44:00.929Z","carbonFootprint":468}}],"dateCreated":"2025-10-14T14:44:00.665Z"}
+Response Time: 0.434199s
+HTTP Status: 201
+---
+Tue Oct 14 10:46:00 EDT 2025: Generating test traffic - Product: Test Product 1760453160, Price: 403
+{"id":"7912cf85-30b7-4188-b3aa-f5ed53de5c58","items":[{"id":"c59e1e63-c11a-403a-ac34-78f24b2bd116","submission":{"id":"8e3addff-13e9-49fe-957d-16189c9c828f","zip":"02101","currency":"USD","title":"Test Product 1760453160","price":403,"description":"Monitoring test item - Automotive","isUsed":false},"footprint":{"id":"d5103d9f-7dae-471a-be15-97ed9b920804","currency":"USD","expiresAt":"2025-10-21T14:46:00.499Z","carbonFootprint":153}}],"dateCreated":"2025-10-14T14:46:00.243Z"}
+Response Time: 0.397053s
+HTTP Status: 201
+---
+Tue Oct 14 10:48:00 EDT 2025: Generating test traffic - Product: Test Product 1760453280, Price: 635
+{"id":"24de81f6-f385-4297-8dc5-30ad2ccaeaed","items":[{"id":"88448927-5654-46fe-94b3-3fd88ebd5ef1","submission":{"id":"2dc732d6-5373-4619-95df-bdf2b96ac7dc","zip":"02062","currency":"USD","title":"Test Product 1760453280","price":635,"description":"Test traffic generation - Books","isUsed":false},"footprint":{"id":"bebf17fe-0ac3-4d8b-9668-8973cba285ea","currency":"USD","expiresAt":"2025-10-21T14:48:01.151Z","carbonFootprint":348}}],"dateCreated":"2025-10-14T14:48:00.852Z"}
+Response Time: 0.450002s
+HTTP Status: 201
+---
+Tue Oct 14 10:50:00 EDT 2025: Generating test traffic - Product: Test Product 1760453400, Price: 439
+{"id":"6c1a5976-7806-435f-8bc5-e1d48d9a2aec","items":[{"id":"99ec8619-ee8f-48bf-8e41-c5813550e047","submission":{"id":"251048a8-6d2f-44d1-9fa8-d4e250138945","zip":"60601","currency":"USD","title":"Test Product 1760453400","price":439,"description":"Sample item for API testing - Home & Garden","isUsed":false},"footprint":{"id":"08859ca8-b502-4d77-9eb4-24d5bf530029","currency":"USD","expiresAt":"2025-10-21T14:50:00.945Z","carbonFootprint":246}}],"dateCreated":"2025-10-14T14:50:00.632Z"}
+Response Time: 1.866174s
+HTTP Status: 201
+---
+Tue Oct 14 10:52:00 EDT 2025: Generating test traffic - Product: Test Product 1760453520, Price: 16
+{"id":"2ce768ca-862c-4ade-ab12-93f5250b43a8","items":[{"id":"502aac2d-65d7-4809-be40-a0511eb1ddee","submission":{"id":"bd30ee3e-fb14-4db1-8d32-e2761d0f35ca","zip":"30309","currency":"USD","title":"Test Product 1760453520","price":16,"description":"Monitoring test item - Automotive","isUsed":false},"footprint":{"id":"660aea4e-9f19-42d0-aa09-d1edd105b6ad","currency":"USD","expiresAt":"2025-10-21T14:52:00.996Z","carbonFootprint":7}}],"dateCreated":"2025-10-14T14:52:00.730Z"}
+Response Time: 0.408620s
+HTTP Status: 201
+---
+Tue Oct 14 10:54:00 EDT 2025: Generating test traffic - Product: Test Product 1760453640, Price: 346
+{"id":"de1ba13e-d0c4-4a00-b296-827a74baf4e1","items":[{"id":"a4245b4a-4d84-4ee8-8cd1-ba99aeaae47e","submission":{"id":"89e87e00-e0ba-4883-9892-ece3eb69ec10","zip":"30309","currency":"USD","title":"Test Product 1760453640","price":346,"description":"API test product - Health & Beauty","isUsed":false},"footprint":{"id":"d68a954e-406d-4767-ab56-f599283ec365","currency":"USD","expiresAt":"2025-10-21T14:54:00.737Z","carbonFootprint":151}}],"dateCreated":"2025-10-14T14:54:00.467Z"}
+Response Time: 0.415309s
+HTTP Status: 201
+---
+Tue Oct 14 10:56:01 EDT 2025: Generating test traffic - Product: Test Product 1760453761, Price: 101
+{"id":"1b1724a8-9c0d-4780-8272-cc62c88cde97","items":[{"id":"d20e2727-bf98-433d-b058-03b2005d1dfa","submission":{"id":"5ec6289c-65bd-4223-aab0-e2b990274fc3","zip":"10001","currency":"USD","title":"Test Product 1760453761","price":101,"description":"Automated test traffic - Electronics","isUsed":false},"footprint":{"id":"9eb1caa4-e69d-4829-8957-131db35d4fa8","currency":"USD","expiresAt":"2025-10-21T14:56:01.488Z","carbonFootprint":42}}],"dateCreated":"2025-10-14T14:56:01.232Z"}
+Response Time: 0.418830s
+HTTP Status: 201
+---
+Tue Oct 14 10:58:00 EDT 2025: Generating test traffic - Product: Test Product 1760453880, Price: 539
+{"id":"42bff442-a6b8-4404-bbd6-69b390940b40","items":[{"id":"20c8134e-515a-4ed1-a8fb-4ada8707d912","submission":{"id":"23ce64fb-03a2-48ae-8b52-4a974c21cb55","zip":"10001","currency":"USD","title":"Test Product 1760453880","price":539,"description":"Monitoring test item - Automotive","isUsed":false},"footprint":{"id":"5f1a53ca-41f2-4eba-8ce4-c672a4c07827","currency":"USD","expiresAt":"2025-10-21T14:58:01.249Z","carbonFootprint":225}}],"dateCreated":"2025-10-14T14:58:00.977Z"}
+Response Time: 0.419938s
+HTTP Status: 201
+---
+Tue Oct 14 11:00:00 EDT 2025: Generating test traffic - Product: Test Product 1760454000, Price: 288
+{"id":"219f1f00-cb07-4f88-b24c-917ee73c178c","items":[{"id":"9da3353c-1bd3-4bfc-abb0-44ec9b983559","submission":{"id":"0e6efbe9-ffee-4c69-95c3-8caaed72ab86","zip":"02062","currency":"USD","title":"Test Product 1760454000","price":288,"description":"API test product - Health & Beauty","isUsed":false},"footprint":{"id":"7a44fefb-a1d7-40ca-91ab-8c25e1743bdf","currency":"USD","expiresAt":"2025-10-21T15:00:00.995Z","carbonFootprint":158}}],"dateCreated":"2025-10-14T15:00:00.745Z"}
+Response Time: 0.396139s
+HTTP Status: 201
+---
+Tue Oct 14 11:02:00 EDT 2025: Generating test traffic - Product: Test Product 1760454120, Price: 620
+{"id":"c80d45b5-0341-4d7c-9347-42578187a37f","items":[{"id":"ea5a49d8-570c-40b6-8fa4-de00793aa9e0","submission":{"id":"ecaf91d0-3fab-4cb4-a012-ae5a9fb0b255","zip":"60601","currency":"USD","title":"Test Product 1760454120","price":620,"description":"Monitoring test item - Automotive","isUsed":false},"footprint":{"id":"c2e0f6d2-32ba-4bd8-9f65-1b31f6a2b177","currency":"USD","expiresAt":"2025-10-21T15:02:00.755Z","carbonFootprint":348}}],"dateCreated":"2025-10-14T15:02:00.499Z"}
+Response Time: 0.458524s
+HTTP Status: 201
+---
+Tue Oct 14 11:04:00 EDT 2025: Generating test traffic - Product: Test Product 1760454240, Price: 627
+{"id":"340a5460-9931-4e45-955b-f5a8a610955d","items":[{"id":"24a87d44-c80c-4f86-9e4f-d41e86f062c0","submission":{"id":"d6f28531-7225-4145-9e25-93cc9349f7a4","zip":"10001","currency":"USD","title":"Test Product 1760454240","price":627,"description":"Sample item for API testing - Home & Garden","isUsed":false},"footprint":{"id":"160602d0-a5cd-499b-960a-ab8f65edcac9","currency":"USD","expiresAt":"2025-10-21T15:04:01.372Z","carbonFootprint":262}}],"dateCreated":"2025-10-14T15:04:01.091Z"}
+Response Time: 0.455139s
+HTTP Status: 201
+---
+Tue Oct 14 11:06:00 EDT 2025: Generating test traffic - Product: Test Product 1760454360, Price: 813
+{"id":"a9ef739f-a5ac-4dce-84ef-8f9279ada319","items":[{"id":"c53c9025-7522-4010-821d-46e0a6744144","submission":{"id":"4f29e5b8-46f2-48a2-8394-64c35efa9632","zip":"10001","currency":"USD","title":"Test Product 1760454360","price":813,"description":"Test traffic generation - Books","isUsed":false},"footprint":{"id":"ddfa3180-d99d-467e-a5b1-b524b8c227fc","currency":"USD","expiresAt":"2025-10-21T15:06:00.880Z","carbonFootprint":340}}],"dateCreated":"2025-10-14T15:06:00.593Z"}
+Response Time: 0.447794s
+HTTP Status: 201
+---
+Tue Oct 14 11:08:01 EDT 2025: Generating test traffic - Product: Test Product 1760454481, Price: 520
+{"id":"c5324f06-fa05-4a02-b285-2b02e2f640e6","items":[{"id":"7c3fb7af-632c-496a-8599-8c4f3d44dbd0","submission":{"id":"a33da0de-9f0e-428f-94e8-54b75521ab0f","zip":"98101","currency":"USD","title":"Test Product 1760454481","price":520,"description":"Automated test traffic - Electronics","isUsed":false},"footprint":{"id":"234e3e2a-dc91-4dc4-a2d2-c1166463cf11","currency":"USD","expiresAt":"2025-10-21T15:08:01.626Z","carbonFootprint":297}}],"dateCreated":"2025-10-14T15:08:01.297Z"}
+Response Time: 0.475787s
+HTTP Status: 201
+---
+Tue Oct 14 11:10:00 EDT 2025: Generating test traffic - Product: Test Product 1760454600, Price: 204
+{"id":"2936c18e-c19b-42b2-8f11-297776850945","items":[{"id":"75d1a213-67b1-43bb-a98c-1425f25cd43a","submission":{"id":"3989fd22-e73a-49da-a8de-331e4efb0065","zip":"90210","currency":"USD","title":"Test Product 1760454600","price":204,"description":"Sample item for API testing - Home & Garden","isUsed":false},"footprint":{"id":"5e8f08ae-87f2-412e-b896-908ae8bae99a","currency":"USD","expiresAt":"2025-10-21T15:10:01.212Z","carbonFootprint":96}}],"dateCreated":"2025-10-14T15:10:00.949Z"}
+Response Time: 0.411211s
+HTTP Status: 201
+---
+Tue Oct 14 11:12:00 EDT 2025: Generating test traffic - Product: Test Product 1760454720, Price: 29
+{"id":"60c8815d-8b8e-4e58-994f-9718251f0b00","items":[{"id":"f1176c0f-ac77-49db-887f-4ff906e0b5b0","submission":{"id":"ba1e42b1-93d5-4200-b876-426f6208f27e","zip":"98101","currency":"USD","title":"Test Product 1760454720","price":29,"description":"Mock product data - Sports & Outdoors","isUsed":false},"footprint":{"id":"e1c03eb2-b60e-4b81-93b6-0ade0672288a","currency":"USD","expiresAt":"2025-10-21T15:12:00.839Z","carbonFootprint":17}}],"dateCreated":"2025-10-14T15:12:00.586Z"}
+Response Time: 0.447487s
+HTTP Status: 201
+---
+Tue Oct 14 11:14:01 EDT 2025: Generating test traffic - Product: Test Product 1760454840, Price: 332
+{"id":"47a3ae7f-1178-460e-88ec-eada471b6b37","items":[{"id":"b29070eb-39eb-427b-9409-74f1d2663c83","submission":{"id":"8717d160-8bb8-476f-9d57-227e46c54ea2","zip":"98101","currency":"USD","title":"Test Product 1760454840","price":332,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"bbbb9249-e56c-483e-abcd-3a17c746b2e1","currency":"USD","expiresAt":"2025-10-21T15:14:01.438Z","carbonFootprint":190}}],"dateCreated":"2025-10-14T15:14:01.177Z"}
+Response Time: 0.419739s
+HTTP Status: 201
+---
+Tue Oct 14 11:16:00 EDT 2025: Generating test traffic - Product: Test Product 1760454960, Price: 458
+{"id":"3d7a2ce2-bc97-4b51-a8e1-45c3f113b1e5","items":[{"id":"8d8c6d8b-dbda-4c2b-90d3-96db48380e45","submission":{"id":"a3956e41-5391-4955-8451-29ac2b6ceb68","zip":"60601","currency":"USD","title":"Test Product 1760454960","price":458,"description":"Sample item for API testing - Home & Garden","isUsed":false},"footprint":{"id":"eecd71e4-9b75-4186-a09d-b9c43286eabb","currency":"USD","expiresAt":"2025-10-21T15:16:01.108Z","carbonFootprint":257}}],"dateCreated":"2025-10-14T15:16:00.810Z"}
+Response Time: 0.447104s
+HTTP Status: 201
+---
+Tue Oct 14 11:18:00 EDT 2025: Generating test traffic - Product: Test Product 1760455080, Price: 643
+{"id":"9e0f71cf-0ff7-4c5a-90c1-c6a3eb7acb77","items":[{"id":"3d94d6b6-b2d2-4c54-8858-f6f72670f659","submission":{"id":"825d9407-05ba-44bb-81b0-3e3cd97f4b38","zip":"60601","currency":"USD","title":"Test Product 1760455080","price":643,"description":"Test traffic generation - Books","isUsed":false},"footprint":{"id":"3f675d9a-ba0b-4b09-a997-7452a258afd1","currency":"USD","expiresAt":"2025-10-21T15:18:00.697Z","carbonFootprint":361}}],"dateCreated":"2025-10-14T15:18:00.437Z"}
+Response Time: 0.439744s
+HTTP Status: 201
+---
+Tue Oct 14 11:20:00 EDT 2025: Generating test traffic - Product: Test Product 1760455200, Price: 128
+{"id":"a8f165b2-be76-4713-8699-9f979c7c9ee6","items":[{"id":"cadd4d48-a449-4bcf-827d-338f552815d2","submission":{"id":"be6cc397-a4f7-4e6f-afcc-5a14baffbbe1","zip":"02062","currency":"USD","title":"Test Product 1760455200","price":128,"description":"Test traffic generation - Books","isUsed":false},"footprint":{"id":"495f99e2-ff4a-4fe7-81a1-660fe525b1c2","currency":"USD","expiresAt":"2025-10-21T15:20:01.339Z","carbonFootprint":70}}],"dateCreated":"2025-10-14T15:20:01.087Z"}
+Response Time: 0.469387s
+HTTP Status: 201
+---
+Tue Oct 14 11:22:00 EDT 2025: Generating test traffic - Product: Test Product 1760455320, Price: 294
+{"id":"2f5bb957-2ab1-4bd5-998a-f5403b90e149","items":[{"id":"9e752c31-56ad-4479-8a9f-66d918db2e06","submission":{"id":"6616fef7-8b45-4124-82ab-b0f563e9e791","zip":"90210","currency":"USD","title":"Test Product 1760455320","price":294,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"32f16abe-8431-42d8-a8e7-8fa78ef7bc2d","currency":"USD","expiresAt":"2025-10-21T15:22:00.979Z","carbonFootprint":138}}],"dateCreated":"2025-10-14T15:22:00.719Z"}
+Response Time: 0.407681s
+HTTP Status: 201
+---
+Tue Oct 14 11:24:00 EDT 2025: Generating test traffic - Product: Test Product 1760455440, Price: 500
+{"id":"d538ef4d-7a5f-4572-8e9b-19a3754621c0","items":[{"id":"b81e3e00-62c5-44ab-ac83-add24d272888","submission":{"id":"bcd36dc3-36f6-41b2-b200-430abebf9eb1","zip":"90210","currency":"USD","title":"Test Product 1760455440","price":500,"description":"API test product - Health & Beauty","isUsed":false},"footprint":{"id":"a53272b1-ce52-4f9f-bcc6-c81648a51da9","currency":"USD","expiresAt":"2025-10-21T15:24:00.656Z","carbonFootprint":235}}],"dateCreated":"2025-10-14T15:24:00.378Z"}
+Response Time: 0.466159s
+HTTP Status: 201
+---
+Tue Oct 14 11:26:00 EDT 2025: Generating test traffic - Product: Test Product 1760455560, Price: 513
+{"id":"c649486f-1fff-433c-b6cb-83b72f100cb3","items":[{"id":"216e9996-edad-4030-b141-4487a70317e9","submission":{"id":"32e4aac7-15c7-4e53-9e01-71d2f88002f5","zip":"02101","currency":"USD","title":"Test Product 1760455560","price":513,"description":"Sample item for API testing - Home & Garden","isUsed":false},"footprint":{"id":"16019ec7-2fb1-4baa-b92f-4b37c10ea64b","currency":"USD","expiresAt":"2025-10-21T15:26:01.250Z","carbonFootprint":194}}],"dateCreated":"2025-10-14T15:26:00.991Z"}
+Response Time: 0.435614s
+HTTP Status: 201
+---
+Tue Oct 14 11:28:00 EDT 2025: Generating test traffic - Product: Test Product 1760455680, Price: 681
+{"id":"7fc2d5be-691f-4740-ba91-648e59d2d48c","items":[{"id":"16d8efaf-93c2-4390-89aa-319681e07b31","submission":{"id":"e2c7b87a-6b75-4d7f-bb7d-529d6aebaff3","zip":"98101","currency":"USD","title":"Test Product 1760455680","price":681,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"d93e31c7-5c82-43a1-89c7-7aa9ec5acc4b","currency":"USD","expiresAt":"2025-10-21T15:28:00.912Z","carbonFootprint":389}}],"dateCreated":"2025-10-14T15:28:00.641Z"}
+Response Time: 0.448022s
+HTTP Status: 201
+---
+Tue Oct 14 11:30:01 EDT 2025: Generating test traffic - Product: Test Product 1760455801, Price: 237
+{"id":"d0aa5e9e-a641-4987-b044-b166b3094948","items":[{"id":"2544b5a0-4f18-423c-8780-e88ed65f0711","submission":{"id":"059e196a-1238-42fd-a06a-ab699b95278c","zip":"02101","currency":"USD","title":"Test Product 1760455801","price":237,"description":"Sample item for API testing - Home & Garden","isUsed":false},"footprint":{"id":"691600df-3748-4ba8-85c3-e1706ffa4e4c","currency":"USD","expiresAt":"2025-10-21T15:30:01.528Z","carbonFootprint":90}}],"dateCreated":"2025-10-14T15:30:01.266Z"}
+Response Time: 0.418763s
+HTTP Status: 201
+---
+Tue Oct 14 11:32:00 EDT 2025: Generating test traffic - Product: Test Product 1760455920, Price: 611
+{"id":"321f0b27-51c4-41e4-a76e-50b29aedc9ec","items":[{"id":"d7fa0599-fdea-45a7-83bc-b1e2f5a3b962","submission":{"id":"ecb7be3d-94a9-44c0-9263-42b240e92ca1","zip":"02101","currency":"USD","title":"Test Product 1760455920","price":611,"description":"API test product - Health & Beauty","isUsed":false},"footprint":{"id":"51319bc7-4c75-4e8c-87fa-31a6f3cfafc3","currency":"USD","expiresAt":"2025-10-21T15:32:01.282Z","carbonFootprint":231}}],"dateCreated":"2025-10-14T15:32:01.013Z"}
+Response Time: 0.424405s
+HTTP Status: 201
+---
+Tue Oct 14 11:34:00 EDT 2025: Generating test traffic - Product: Test Product 1760456040, Price: 478
+{"id":"f5de2c24-39ca-4cf5-a308-9758dc105a9a","items":[{"id":"a358f2c8-1cfd-4857-bdcf-4b464f96812d","submission":{"id":"6bbd6129-d8f9-442f-a6eb-567164d78a80","zip":"30309","currency":"USD","title":"Test Product 1760456040","price":478,"description":"API test product - Health & Beauty","isUsed":false},"footprint":{"id":"db98ea46-4014-48d0-85f8-5b60070fc2b1","currency":"USD","expiresAt":"2025-10-21T15:34:01.052Z","carbonFootprint":209}}],"dateCreated":"2025-10-14T15:34:00.769Z"}
+Response Time: 0.440061s
+HTTP Status: 201
+---
+Tue Oct 14 11:36:00 EDT 2025: Generating test traffic - Product: Test Product 1760456160, Price: 636
+{"id":"660b7c10-82f4-49a9-a42f-2b46bff01c5e","items":[{"id":"8f2f1602-40eb-471f-b31f-1390a5ecb746","submission":{"id":"64077927-89f1-4096-9501-7725b324fd0a","zip":"02101","currency":"USD","title":"Test Product 1760456160","price":636,"description":"Test traffic generation - Books","isUsed":false},"footprint":{"id":"fc65764a-2dcb-4ed8-a66c-7ce8cb20aeef","currency":"USD","expiresAt":"2025-10-21T15:36:00.883Z","carbonFootprint":241}}],"dateCreated":"2025-10-14T15:36:00.588Z"}
+Response Time: 0.561503s
+HTTP Status: 201
+---
+Tue Oct 14 11:38:00 EDT 2025: Generating test traffic - Product: Test Product 1760456280, Price: 691
+{"id":"7549a7aa-7720-431e-9043-22da997d3b4c","items":[{"id":"efad6590-1d9f-408c-809c-0377310152d2","submission":{"id":"957fb3b6-3b9f-4f1f-bba4-a5c75da9946c","zip":"30309","currency":"USD","title":"Test Product 1760456280","price":691,"description":"Automated test traffic - Electronics","isUsed":false},"footprint":{"id":"0c7c3cb1-4dd0-4f72-b655-3230bf46c468","currency":"USD","expiresAt":"2025-10-21T15:38:00.696Z","carbonFootprint":302}}],"dateCreated":"2025-10-14T15:38:00.407Z"}
+Response Time: 0.514195s
+HTTP Status: 201
+---
+Tue Oct 14 11:40:01 EDT 2025: Generating test traffic - Product: Test Product 1760456401, Price: 242
+{"id":"c9fe26bc-9732-4317-a6d8-18120f054331","items":[{"id":"71cbb2e6-22b8-40e7-92cf-5fb4048ae860","submission":{"id":"37523857-69ce-4bf5-bded-28d6bab0cd95","zip":"02101","currency":"USD","title":"Test Product 1760456401","price":242,"description":"Test product for monitoring - Clothing","isUsed":false},"footprint":{"id":"07f9f294-00a3-4d0f-adc6-fd6c6925f929","currency":"USD","expiresAt":"2025-10-21T15:40:01.598Z","carbonFootprint":92}}],"dateCreated":"2025-10-14T15:40:01.307Z"}
+Response Time: 0.476520s
+HTTP Status: 201
+---
+Tue Oct 14 11:42:00 EDT 2025: Generating test traffic - Product: Test Product 1760456520, Price: 232
+{"id":"e6175a36-8a51-415a-b743-115d700a5e5e","items":[{"id":"aa07abcc-1296-466a-82c1-799ffacab590","submission":{"id":"a0694cc5-734d-432d-a68e-e0db79ea026c","zip":"30309","currency":"USD","title":"Test Product 1760456520","price":232,"description":"Mock product data - Sports & Outdoors","isUsed":false},"footprint":{"id":"cca44770-1f90-4529-9ed8-afcdf1c59a9f","currency":"USD","expiresAt":"2025-10-21T15:42:01.432Z","carbonFootprint":101}}],"dateCreated":"2025-10-14T15:42:01.137Z"}
+Response Time: 0.499729s
+HTTP Status: 201
+---
+Tue Oct 14 11:44:00 EDT 2025: Generating test traffic - Product: Test Product 1760456640, Price: 762
+{"id":"b859897f-ab97-4976-8186-7d37dc7a6662","items":[{"id":"4214eff7-8918-4495-a7e9-f724a6fdcd05","submission":{"id":"a74f3835-1649-4e0c-b2ad-1a0a4df72a02","zip":"02101","currency":"USD","title":"Test Product 1760456640","price":762,"description":"Sample item for API testing - Home & Garden","isUsed":false},"footprint":{"id":"487629ef-9443-419e-bf92-0fdd23b9617a","currency":"USD","expiresAt":"2025-10-21T15:44:01.229Z","carbonFootprint":288}}],"dateCreated":"2025-10-14T15:44:00.943Z"}
+Response Time: 0.560938s
+HTTP Status: 201
+---
+Tue Oct 14 11:46:00 EDT 2025: Generating test traffic - Product: Test Product 1760456760, Price: 355
+{"id":"c85894ca-61c4-4591-8393-87143ae7e293","items":[{"id":"3f8be2ab-dfd2-495d-a1ed-6867c3b9c40d","submission":{"id":"133914c2-7fa0-42e8-905f-f64e8b291295","zip":"90210","currency":"USD","title":"Test Product 1760456760","price":355,"description":"Mock product data - Sports & Outdoors","isUsed":false},"footprint":{"id":"5831cf15-1582-41e3-a133-cd696629aef3","currency":"USD","expiresAt":"2025-10-21T15:46:01.014Z","carbonFootprint":167}}],"dateCreated":"2025-10-14T15:46:00.736Z"}
+Response Time: 0.469481s
+HTTP Status: 201
+---
+Tue Oct 14 11:48:00 EDT 2025: Generating test traffic - Product: Test Product 1760456880, Price: 277
+{"message":"insert or update on table \"transactions\" violates foreign key constraint \"FK_5b86d893321c200c779f9464cac\"","error":"Bad Request","statusCode":400}
+Response Time: 9.624267s
+HTTP Status: 400
+---
+Tue Oct 14 11:50:01 EDT 2025: Generating test traffic - Product: Test Product 1760457001, Price: 575
+{"id":"e4ee6118-9489-432f-83bf-5655a596777a","items":[{"id":"c603cf7e-6298-4c58-8191-de94bbd952f6","submission":{"id":"5d8ce784-e613-4c43-b1b9-70900caba443","zip":"02101","currency":"USD","title":"Test Product 1760457001","price":575,"description":"Test traffic generation - Books","isUsed":false},"footprint":{"id":"8e9ac9c7-e24c-4cf2-88d9-ed37e4c28749","currency":"USD","expiresAt":"2025-10-21T15:50:01.627Z","carbonFootprint":218}}],"dateCreated":"2025-10-14T15:50:01.342Z"}
+Response Time: 0.653870s
+HTTP Status: 201
+---

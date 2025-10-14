@@ -22,12 +22,12 @@ export async function POST(request: NextRequest) {
     console.log(`Clear Database: Admin password verified`);
 
     const results = {
-      vectordb: { success: false, error: null },
-      transactions: { success: false, error: null },
-      transactionItems: { success: false, error: null },
-      submissions: { success: false, error: null },
-      anomalies: { success: false, error: null },
-      integrations: { success: false, error: null }
+      vectordb: { success: false, error: null as string | null },
+      transactions: { success: false, error: null as string | null },
+      transactionItems: { success: false, error: null as string | null },
+      submissions: { success: false, error: null as string | null },
+      anomalies: { success: false, error: null as string | null },
+      integrations: { success: false, error: null as string | null }
     };
 
     // Clear VectorDB
