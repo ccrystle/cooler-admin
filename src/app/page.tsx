@@ -797,6 +797,194 @@ export default function AdminDashboard() {
           ? `bg-[${selectedTheme.darkMode.background}]`
           : 'bg-gray-50'
       }`}>
+        {/* Quick Overview Section */}
+        <div className="mb-8">
+          <div className={`shadow rounded-lg p-6 transition-colors duration-200 ${
+            isDarkMode 
+              ? `bg-[${selectedTheme.darkMode.surface}] border border-[${selectedTheme.darkMode.border}]`
+              : 'bg-white'
+          }`}>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className={`text-xl font-semibold transition-colors duration-200 ${
+                isDarkMode 
+                  ? `text-[${selectedTheme.darkMode.text}]`
+                  : 'text-gray-900'
+              }`}>
+                Quick Overview
+              </h2>
+              <div className="flex space-x-2">
+                <Link
+                  href="/api-requests"
+                  className="text-sm text-blue-600 hover:text-blue-800 flex items-center"
+                >
+                  <EyeIcon className="h-4 w-4 mr-1" />
+                  View All Requests
+                </Link>
+                <Link
+                  href="/anomalies"
+                  className="text-sm text-orange-600 hover:text-orange-800 flex items-center"
+                >
+                  <ExclamationTriangleIcon className="h-4 w-4 mr-1" />
+                  View Issues
+                </Link>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Recent Requests */}
+              <div className={`p-4 rounded-lg border transition-colors duration-200 ${
+                isDarkMode 
+                  ? `border-[${selectedTheme.darkMode.border}] bg-[${selectedTheme.darkMode.hover}]`
+                  : 'border-gray-200 bg-gray-50'
+              }`}>
+                <h3 className={`text-lg font-medium mb-3 transition-colors duration-200 ${
+                  isDarkMode 
+                    ? `text-[${selectedTheme.darkMode.text}]`
+                    : 'text-gray-900'
+                }`}>
+                  Recent Requests (All Accounts)
+                </h3>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className={`text-sm transition-colors duration-200 ${
+                      isDarkMode 
+                        ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                        : 'text-gray-600'
+                    }`}>Last 10 requests:</span>
+                    <span className={`text-sm font-medium transition-colors duration-200 ${
+                      isDarkMode 
+                        ? `text-[${selectedTheme.darkMode.text}]`
+                        : 'text-gray-900'
+                    }`}>85% success rate</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className={`text-sm transition-colors duration-200 ${
+                      isDarkMode 
+                        ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                        : 'text-gray-600'
+                    }`}>Avg response time:</span>
+                    <span className={`text-sm font-medium transition-colors duration-200 ${
+                      isDarkMode 
+                        ? `text-[${selectedTheme.darkMode.text}]`
+                        : 'text-gray-900'
+                    }`}>1,470ms</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className={`text-sm transition-colors duration-200 ${
+                      isDarkMode 
+                        ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                        : 'text-gray-600'
+                    }`}>Primary endpoint:</span>
+                    <span className={`text-sm font-medium transition-colors duration-200 ${
+                      isDarkMode 
+                        ? `text-[${selectedTheme.darkMode.text}]`
+                        : 'text-gray-900'
+                    }`}>/v2/footprint/products</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Issue Visibility */}
+              <div className={`p-4 rounded-lg border transition-colors duration-200 ${
+                isDarkMode 
+                  ? `border-[${selectedTheme.darkMode.border}] bg-[${selectedTheme.darkMode.hover}]`
+                  : 'border-gray-200 bg-gray-50'
+              }`}>
+                <h3 className={`text-lg font-medium mb-3 transition-colors duration-200 ${
+                  isDarkMode 
+                    ? `text-[${selectedTheme.darkMode.text}]`
+                    : 'text-gray-900'
+                }`}>
+                  Current Issues
+                </h3>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className={`text-sm transition-colors duration-200 ${
+                      isDarkMode 
+                        ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                        : 'text-gray-600'
+                    }`}>OpenAI API failures:</span>
+                    <span className="text-sm font-medium text-red-600">2</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className={`text-sm transition-colors duration-200 ${
+                      isDarkMode 
+                        ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                        : 'text-gray-600'
+                    }`}>Database constraints:</span>
+                    <span className="text-sm font-medium text-orange-600">3</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className={`text-sm transition-colors duration-200 ${
+                      isDarkMode 
+                        ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                        : 'text-gray-600'
+                    }`}>Timeout errors:</span>
+                    <span className="text-sm font-medium text-yellow-600">1</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className={`text-sm transition-colors duration-200 ${
+                      isDarkMode 
+                        ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                        : 'text-gray-600'
+                    }`}>Missing fields:</span>
+                    <span className="text-sm font-medium text-blue-600">5</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Data Quality */}
+              <div className={`p-4 rounded-lg border transition-colors duration-200 ${
+                isDarkMode 
+                  ? `border-[${selectedTheme.darkMode.border}] bg-[${selectedTheme.darkMode.hover}]`
+                  : 'border-gray-200 bg-gray-50'
+              }`}>
+                <h3 className={`text-lg font-medium mb-3 transition-colors duration-200 ${
+                  isDarkMode 
+                    ? `text-[${selectedTheme.darkMode.text}]`
+                    : 'text-gray-900'
+                }`}>
+                  Data Quality
+                </h3>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className={`text-sm transition-colors duration-200 ${
+                      isDarkMode 
+                        ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                        : 'text-gray-600'
+                    }`}>Low AI confidence:</span>
+                    <span className="text-sm font-medium text-red-600">12</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className={`text-sm transition-colors duration-200 ${
+                      isDarkMode 
+                        ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                        : 'text-gray-600'
+                    }`}>Default NAICS codes:</span>
+                    <span className="text-sm font-medium text-orange-600">8</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className={`text-sm transition-colors duration-200 ${
+                      isDarkMode 
+                        ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                        : 'text-gray-600'
+                    }`}>Unusual pricing:</span>
+                    <span className="text-sm font-medium text-yellow-600">3</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className={`text-sm transition-colors duration-200 ${
+                      isDarkMode 
+                        ? `text-[${selectedTheme.darkMode.textSecondary}]`
+                        : 'text-gray-600'
+                    }`}>Missing descriptions:</span>
+                    <span className="text-sm font-medium text-blue-600">7</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Dashboard Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className={`overflow-hidden shadow rounded-lg transition-colors duration-200 ${
